@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Controle de Lucro - Motorista</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial;
+      padding: 20px;
+      background: #f2f2f2;
+    }
+    h2 {
+      text-align: center;
+    }
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: black;
+      color: white;
+      border: none;
+    }
+    .resultado {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Controle de Lucro</h2>
+
+<input type="number" id="ganho" placeholder="Ganhos do dia">
+<input type="number" id="gasto" placeholder="Gastos do dia">
+
+<button onclick="calcular()">Calcular</button>
+
+<div class="resultado">
+  <p id="lucro"></p>
+</div>
+
+<script>
+function calcular() {
+  let ganho = parseFloat(document.getElementById("ganho").value) || 0;
+  let gasto = parseFloat(document.getElementById("gasto").value) || 0;
+  let lucro = ganho - gasto;
+
+  document.getElementById("lucro").innerText =
+    "Lucro do dia: R$ " + lucro.toFixed(2);
+
+  localStorage.setItem("ultimoLucro", lucro);
+}
+
+window.onload = function() {
+  let salvo = localStorage.getItem("ultimoLucro");
+  if (salvo) {
+    document.getElementById("lucro").innerText =
+      "Último lucro salvo: R$ " + parseFloat(salvo).toFixed(2);
+  }
+}
+</script>
+
+</body>
+</html>
