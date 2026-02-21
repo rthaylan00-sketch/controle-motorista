@@ -1,71 +1,120 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Controle de Lucro - Motorista</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      font-family: Arial;
-      padding: 20px;
-      background: #f2f2f2;
-    }
-    h2 {
-      text-align: center;
-    }
-    input, button {
-      width: 100%;
-      padding: 12px;
-      margin: 8px 0;
-      font-size: 16px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
-    button {
-      background: black;
-      color: white;
-      border: none;
-    }
-    .resultado {
-      margin-top: 20px;
-      font-size: 18px;
-      font-weight: bold;
-      text-align: center;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Controle Pro Motorista</title>
+
+<style>
+body{
+  font-family: Arial;
+  background: linear-gradient(135deg,#111,#222);
+  color:white;
+  padding:20px;
+}
+.container{
+  max-width:400px;
+  margin:auto;
+}
+h2{
+  text-align:center;
+}
+.card{
+  background:#1e1e1e;
+  padding:15px;
+  border-radius:12px;
+  margin-bottom:15px;
+}
+input{
+  width:100%;
+  padding:12px;
+  margin-top:8px;
+  border-radius:8px;
+  border:none;
+  font-size:16px;
+}
+button{
+  width:100%;
+  padding:14px;
+  margin-top:12px;
+  border-radius:8px;
+  border:none;
+  background:#00c853;
+  color:black;
+  font-weight:bold;
+  font-size:16px;
+}
+.resultado{
+  font-size:18px;
+  margin-top:10px;
+}
+.lista{
+  margin-top:10px;
+  font-size:14px;
+}
+</style>
 </head>
+
 <body>
 
-<h2>Controle de Lucro</h2>
+<div class="container">
 
-<input type="number" id="ganho" placeholder="Ganhos do dia">
-<input type="number" id="gasto" placeholder="Gastos do dia">
+<h2>Controle Pro Motorista</h2>
 
-<button onclick="calcular()">Calcular</button>
+<div class="card">
+<label>Ganhos do Dia</label>
+<input type="number" id="ganho">
 
-<div class="resultado">
-  <p id="lucro"></p>
+<label>Gastos do Dia</label>
+<input type="number" id="gasto">
+
+<button onclick="salvar()">Salvar Dia</button>
+
+<div class="resultado" id="resultado"></div>
+</div>
+
+<div class="card">
+<h3>Histórico</h3>
+<div class="lista" id="historico"></div>
+<h3 id="totalSemana"></h3>
+</div>
+
 </div>
 
 <script>
-function calcular() {
-  let ganho = parseFloat(document.getElementById("ganho").value) || 0;
-  let gasto = parseFloat(document.getElementById("gasto").value) || 0;
+let dados = JSON.parse(localStorage.getItem("dados")) || [];
+
+function salvar(){
+  let ganho = parseFloat(document.getElementById("ganho").value)||0;
+  let gasto = parseFloat(document.getElementById("gasto").value)||0;
   let lucro = ganho - gasto;
 
-  document.getElementById("lucro").innerText =
-    "Lucro do dia: R$ " + lucro.toFixed(2);
+  let hoje = new Date().toLocaleDateString();
 
-  localStorage.setItem("ultimoLucro", lucro);
+  dados.push({data:hoje,lucro:lucro});
+  localStorage.setItem("dados",JSON.stringify(dados));
+
+  document.getElementById("resultado").innerHTML =
+  "Lucro do dia: R$ "+lucro.toFixed(2);
+
+  atualizar();
 }
 
-window.onload = function() {
-  let salvo = localStorage.getItem("ultimoLucro");
-  if (salvo) {
-    document.getElementById("lucro").innerText =
-      "Último lucro salvo: R$ " + parseFloat(salvo).toFixed(2);
-  }
+function atualizar(){
+  let lista="";
+  let total=0;
+
+  dados.forEach(item=>{
+    lista += item.data+" - R$ "+item.lucro.toFixed(2)+"<br>";
+    total+=item.lucro;
+  });
+
+  document.getElementById("historico").innerHTML=lista;
+  document.getElementById("totalSemana").innerHTML=
+  "Total acumulado: R$ "+total.toFixed(2);
 }
+
+atualizar();
 </script>
 
 </body>
