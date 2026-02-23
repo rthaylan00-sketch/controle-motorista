@@ -4,13 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Controle Pro Motorista</title>
-<img src="/images/minha-imagem.png" alt="Descrição da imagem">
+
+  
 <style>
 body{
-  if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/service.worker.js')
-    .then(reg => console.log('Service Worker registrado!', reg))
-    .catch(err => console.log('Falha ao registrar SW', err));
+  
 }
 
   font-family: Arial;
@@ -61,7 +59,7 @@ button{
 </style>
 </head>
   <link rel="manifest" href="manifest.json">
-
+<img src="/images/minha-imagem.png" alt="Descrição da imagem">
 <body>
 
 <div class="container">
@@ -122,6 +120,10 @@ function atualizar(){
 }
   
 atualizar();
+  if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/service.worker.js')
+    .then(reg => console.log('Service Worker registrado!', reg))
+    .catch(err => console.log('Falha ao registrar SW', err));
 </script>
   
 </body>
