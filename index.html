@@ -8,7 +8,28 @@
   
 <style>
 body{
-  
+  .banner{
+  width: 100%;
+  max-height: 250px;
+  object-fit: cover;
+  display: block;
+}
+  body{
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0f0f0f;
+  color: white;
+}
+
+.container{
+  max-width: 400px;
+  margin: -50px auto 40px auto;
+  background: #1c1c1c;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
 
 
   font-family: Arial;
@@ -62,7 +83,7 @@ button{
 <body>
 
 <div class="container">
-  <img src="images/logo.png.jpg">
+  <img src="images/logo.png.jpg" class=banner">
 
 <h2>Controle Pro Motorista</h2>
 
@@ -75,9 +96,12 @@ button{
 
 <button onclick="salvar()">Salvar Dia</button>
 
-<div class="resultado" id="resultado"></div>
+<div class="resultado" id="resultado">
 </div>
-
+</div>
+<div class="container"
+  <!-- Seu formulário aqui -->
+</div>
 <div class="card">
 <h3>Histórico</h3>
 <div class="lista" id="historico"></div>
