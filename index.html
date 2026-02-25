@@ -74,6 +74,29 @@ button{
 </head>
 
 <body>
+  <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, onAuthStateChanged } 
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBHfI8CE9eMUQ99JM_XAjEkiuFMDoz3M8I",
+  authDomain: "controle-pro-motorista.firebaseapp.com",
+  projectId: "controle-pro-motorista",
+  storageBucket: "controle-pro-motorista.firebasestorage.app",
+  messagingSenderId: "991201688036",
+  appId: "1:991201688036:web:fac529d7c0e7cad826eff1"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+onAuthStateChanged(auth, (user) => {
+  if (!user) {
+    window.location.href = "login.html";
+  }
+});
+</script>
 
 <div class="container">
 
