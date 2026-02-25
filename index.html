@@ -92,10 +92,8 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 onAuthStateChanged(auth, (user) => {
-  if (user) {
-    console.log("Usuário logado:", user.email);
-  } else {
-    window.location.href = "/controle-motorista/index.html";
+  if (!user) {
+    window.location.href = "./login.html";
   }
 });
 </script>
