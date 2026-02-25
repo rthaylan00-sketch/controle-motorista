@@ -95,7 +95,7 @@ onAuthStateChanged(auth, (user) => {
   if (user) {
     console.log("Usuário logado:", user.email);
   } else {
-    window.location.replace("login.html");
+    window.location.href = "/controle-motorista/index.html";
   }
 });
 </script>
