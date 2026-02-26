@@ -7,51 +7,73 @@
 
 <style>
 body{
+  margin:0;
   font-family: Arial;
+  height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
-  height:100vh;
-  background:#111;
-  color:white;
+  background: linear-gradient(135deg,#00c853,#00695c);
 }
-.login-box{
-  background:#222;
+
+.box{
+  background:white;
   padding:30px;
-  border-radius:10px;
-  width:300px;
+  border-radius:15px;
+  width:320px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.2);
 }
+
+h2{
+  text-align:center;
+  color:#333;
+}
+
 input{
   width:100%;
-  padding:10px;
+  padding:12px;
   margin:10px 0;
+  border-radius:8px;
+  border:1px solid #ccc;
 }
+
 button{
   width:100%;
-  padding:10px;
-  background:#00ff88;
+  padding:12px;
+  margin-top:10px;
+  border-radius:8px;
   border:none;
+  background:#00c853;
+  color:white;
+  font-weight:bold;
+}
+
+.link{
+  text-align:center;
+  margin-top:10px;
   cursor:pointer;
+  color:#00695c;
 }
 </style>
 </head>
 
 <body>
 
-<div class="login-box">
-<h2>Login</h2>
+<div class="box">
+<h2>Controle Pro</h2>
 
 <input type="email" id="email" placeholder="Email">
 <input type="password" id="senha" placeholder="Senha">
 
 <button onclick="login()">Entrar</button>
-<button onclick="cadastrar()">Cadastrar</button>
+
+<div class="link" onclick="irCadastro()">Criar conta</div>
 </div>
 
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } 
+import { getAuth, signInWithEmailAndPassword } 
 from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 const firebaseConfig = {
@@ -66,30 +88,20 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-window.login = function(){
-  const email = document.getElementById("email").value;
-  const senha = document.getElementById("senha").value;
+window.login = async function(){
+  const email = email.value;
+  const senha = senha.value;
 
-  signInWithEmailAndPassword(auth, email, senha)
-  .then(() => {
+  try {
+    await signInWithEmailAndPassword(auth, email, senha);
     window.location.href = "./index.html";
-  })
-  .catch((error) => {
-    alert("Erro: " + error.message);
-  });
+  } catch (error) {
+    alert(error.message);
+  }
 }
 
-window.cadastrar = function(){
-  const email = document.getElementById("email").value;
-  const senha = document.getElementById("senha").value;
-
-  createUserWithEmailAndPassword(auth, email, senha)
-  .then(() => {
-    alert("Usuário criado com sucesso!");
-  })
-  .catch((error) => {
-    alert("Erro: " + error.message);
-  });
+window.irCadastro = function(){
+  window.location.href = "./cadastro.html";
 }
 
 </script>
