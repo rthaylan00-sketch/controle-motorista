@@ -89,17 +89,17 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 window.login = async function(){
-  const email = email.value;
-  const senha = senha.value;
+
+  const emailInput = document.getElementById("email").value;
+  const senhaInput = document.getElementById("senha").value;
 
   try {
-    await signInWithEmailAndPassword(auth, email, senha);
-    window.location.href = "./index.html";
+    await signInWithEmailAndPassword(auth, emailInput, senhaInput);
+    window.location.href = "index.html";
   } catch (error) {
     alert(error.message);
   }
 }
-
 window.irCadastro = function(){
   window.location.href = "./cadastro.html";
 }
