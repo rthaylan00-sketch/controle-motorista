@@ -106,7 +106,15 @@ display:flex; align-items:center; justify-content:space-between;
 .sect-title { font-family:'Syne',sans-serif; font-size:15px; font-weight:800; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
 .sect-title::before { content:''; display:block; width:3px; height:16px; background:var(--green); border-radius:2px; }
 
+
 @keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+select{
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
 </style>
 </head>
 <body>
@@ -153,6 +161,14 @@ display:flex; align-items:center; justify-content:space-between;
     </div>
     <button class="btn-save" id="btnSave" onclick="salvar()">✓ &nbsp;Salvar Dia</button>
   </div>
+  <label>Categoria</label>
+
+<select id="categoria">
+  <option value="">Selecione</option>
+  <option value="combustivel">Combustível</option>
+  <option value="gastoDiario">Gastos Diários</option>
+  <option value="manutencao">Manutenção</option>
+</select>
 
   <div class="sect-title">Histórico</div>
   <div class="filter-row">
