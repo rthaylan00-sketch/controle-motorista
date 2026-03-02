@@ -243,14 +243,15 @@ window.salvar = async () => {
   const categoria = document.getElementById('categoria').value;
   if (!data) { showToast('Selecione uma data!', 'err'); return; }
   if ('categoria') {
-    showToast('Selecione uma categoria!');
+    showToast('Selecione uma categoria!', 'err');
+    return;
   }
   const btn = document.getElementById('btnSave');
   btn.disabled = true; btn.textContent = 'Salvando...';
 
   try {
     const ref = collection(db, 'usuarios', uid, 'dias');
-    const docRef = await addDoc(ref,categoria, { data, ganho, gasto, km, lucro: ganho - gasto, categoria, criadoEm: Timestamp.now() });
+    const docRef = await addDoc(ref, { data, ganho, gasto, km, lucro: ganho - gasto, categoria, criadoEm: Timestamp.now() });
     allEntries.unshift({ id: docRef.id, data, ganho, gasto, km, lucro: ganho - gasto });
     document.getElementById('ganho').value = '';
     document.getElementById('gasto').value = '';
