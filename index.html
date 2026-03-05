@@ -162,7 +162,6 @@ select{
     <button class="btn-save" id="btnSave" onclick="salvar()">✓ &nbsp;Salvar Dia</button>
   </div>
   <label>Categoria</label>
-
 <select id="categoria">
   <option value="">Selecione</option>
   <option value="combustivel">Combustível</option>
@@ -242,7 +241,7 @@ window.salvar = async () => {
   const data  = document.getElementById('data').value;
   const categoria = document.getElementById('categoria').value;
   if (!data) { showToast('Selecione uma data!', 'err'); return; }
-  if ('categoria') {
+  if (!categoria) {
     showToast('Selecione uma categoria!', 'err');
     return;
   }
