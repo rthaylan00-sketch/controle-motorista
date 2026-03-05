@@ -190,6 +190,8 @@ select{
 
 <script type="module">
 let listasGastos = [];
+let totalGastos = 0;
+mostrarGastos();
   
 import { initializeApp }     from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut }
@@ -237,7 +239,39 @@ function showToast(msg, type='ok') {
   t.textContent = msg; t.className = `toast ${type} show`;
   setTimeout(() => t.classList.remove('show'), 2600);
 }
+  function adicionarGasto(categoria, valor){
 
+  valor = parseFloat(valor);
+
+  if(!valor){
+    showToast("Digite um valor");
+    return;
+  }
+
+  listaGastos.push({
+    categoria: categoria,
+    valor: valor
+  });
+
+  totalGastos += valor;
+
+  mostrarGastos();
+}
+function mostrarGastos(){
+
+  const lista = document.getElementById("listaGastos");
+
+  lista.innerHTML = "";
+
+  listaGastos.forEach(g => {
+    lista.innerHTML += `
+      <div>
+        ${g.categoria} ${g.valor}
+      </div>
+    `;
+  });
+
+}
 window.salvar = async () => {
   if (!uid) return;
   const ganho = parseFloat(document.getElementById('ganho').value) || 0;
