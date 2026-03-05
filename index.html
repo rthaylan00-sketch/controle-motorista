@@ -239,9 +239,15 @@ function showToast(msg, type='ok') {
   t.textContent = msg; t.className = `toast ${type} show`;
   setTimeout(() => t.classList.remove('show'), 2600);
 }
-  function adicionarGasto(categoria, valor){
+  function adicionarGasto(){
 
-  valor = parseFloat(valor);
+  const categoria = document.getElementById("categoria").value;
+  const valor = parseFloat(document.getElementById("gasto").value);
+
+  if(!categoria){
+    showToast("Selecione uma categoria");
+    return;
+  }
 
   if(!valor){
     showToast("Digite um valor");
@@ -254,6 +260,8 @@ function showToast(msg, type='ok') {
   });
 
   totalGastos += valor;
+
+  document.getElementById("gasto").value = "";
 
   mostrarGastos();
 }
