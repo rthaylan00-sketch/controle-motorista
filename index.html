@@ -379,41 +379,99 @@ window.setFiltro = (f, btn) => {
 };
 
 function renderHistorico() {
-  const hj     = hoje();
+
+  const hj = hoje();
   const mesStr = hj.slice(0,7);
-  const semAgo = new Date(); semAgo.setDate(semAgo.getDate()-7);
+
+  const semAgo = new Date();
+  semAgo.setDate(semAgo.getDate()-7);
 
   let lista = allEntries;
-  if (filtroAtual === 'mes')    lista = allEntries.filter(e => e.data && e.data.startsWith(mesStr));
-  if (filtroAtual === 'semana') lista = allEntries.filter(e => e.data && new Date(e.data+'T12:00:00') >= semAgo);
+
+  if (filtroAtual === 'mes')
+    lista = allEntries.filter(e => e.data && e.data.startsWith(mesStr));
+
+  if (filtroAtual === 'semana')
+    lista = allEntries.filter(e => e.data && new Date(e.data+'T12:00:00') >= semAgo);
 
   const el = document.getElementById('histList');
+
   if (!lista.length) {
-    el.innerHTML = `<div class="empty"><div class="empty-icon">📋</div><div class="empty-text">Nenhum registro encontrado</div></div>`;
+    el.innerHTML = `
+      <div class="empty">
+        <div class="empty-icon">📋</div>
+        <div class="empty-text">Nenhum registro encontrado</div>
+      </div>
+    `;
     return;
   }
+
   el.innerHTML = lista.map(e => {
-    const net = (e.ganho||0) - (e.gasto||0);
+
+    const net = (e.ganho||0) - (e.totalGastos||0);
+
     const pos = net >= 0;
-    const kmTag = e.km > 0 ? `<span class="tag">🛣️ ${e.km} km</span>` : '';
+
+    const kmTag = e.km > 0
+      ? `<span class="tag">🛣️ ${e.km} km</span>`
+      : '';
+
+    let gastosHTML = "";
+
+    if(e.gastos){
+      e.gastos.forEach(g => {
+
+        gastosHTML += `
+          <div class="tag">
+            ${g.categoria} - ${fmt(g.valor)}
+          </div>
+        `;
+
+      });
+    }
+
     return `
     <div class="hist-item">
-      <div>
-        <div class="hi-date">${fmtDate(e.data)}</div>
-        <div class="hi-net ${pos?'pos':'neg'}">${fmt(net)}</div>
-        ${kmTag ? `<div class="hi-tags">${kmTag}</div>` : ''}
-      </div>
-      <div class="hi-right">
-        <div class="hi-vals">
-          <span style="color:var(--green)">+${fmt(e.ganho||0)}</span><br>
-          <span style="color:var(--red)">-${fmt(e.gasto||0)}</span>
-        </div>
-        <button class="btn-del" onclick="excluir('${e.id}')" title="Excluir">🗑</button>
-      </div>
-    </div>`;
-  }).join('');
-}
-</script>
 
-</body>
-</html>
+      <div>
+
+        <div class="hi-date">
+          ${fmtDate(e.data)}
+        </div>
+
+        <div class="hi-net ${pos?'pos':'neg'}">
+          ${fmt(net)}
+        </div>
+
+        <div class="hi-tags">
+          ${gastosHTML}
+          ${kmTag}
+        </div>
+
+      </div>
+
+      <div class="hi-right">
+
+        <div class="hi-vals">
+          <span style="color:var(--green)">
+            +${fmt(e.ganho||0)}
+          </span><br>
+
+          <span style="color:var(--red)">
+            -${fmt(e.totalGastos||0)}
+          </span>
+        </div>
+
+        <button class="btn-del"
+        onclick="excluir('${e.id}')">
+        🗑
+        </button>
+
+      </div>
+
+    </div>
+    `;
+
+  }).join('');
+
+}
