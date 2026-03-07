@@ -345,19 +345,30 @@ async function carregarDados() {
 function atualizarUI() { atualizarStats(); renderHistorico(); }
 
 function atualizarStats() {
-  const hj     = hoje();
+  const hj = hoje();
   const mesStr = hj.slice(0,7);
-  const dHoje  = allEntries.filter(e => e.data === hj);
-  const dMes   = allEntries.filter(e => e.data && e.data.startsWith(mesStr));
 
-  document.getElementById('stTodayInc').textContent = fmt(dHoje.reduce((s,e)=>s+(e.ganho||0),0));
-  document.getElementById('stTodayExp').textContent = fmt(dHoje.reduce((s,e)=>s+(e.gasto||0),0));
+  const dHoje = allEntries.filter(e => e.data === hj);
+  const dMes = allEntries.filter(e => e.data && e.data.startsWith(mesStr));
+
+  const todayInc = dHoje.reduce((s,e)=>s+(e.ganho||0),0);
+  const todayExp = dHoje.reduce((s,e)=>s+(e.totalGastos||0),0);
+
+  document.getElementById('stTodayInc').textContent = fmt(todayInc);
+  document.getElementById('stTodayExp').textContent = fmt(todayExp);
+
   const mInc = dMes.reduce((s,e)=>s+(e.ganho||0),0);
-  const mExp = dMes.reduce((s,e)=>s+(e.gasto||0),0);
+  const mExp = dMes.reduce((s,e)=>s+(e.totalGastos||0),0);
+
   document.getElementById('stMonthInc').textContent = fmt(mInc);
-  document.getElementById('stMonthKm').textContent  = dMes.reduce((s,e)=>s+(e.km||0),0).toLocaleString('pt-BR') + ' km';
-  document.getElementById('heroNet').textContent    = fmt(mInc - mExp);
-  document.getElementById('heroSub').textContent    = `${dMes.length} dia(s) registrado(s) este mês`;
+
+  document.getElementById('stMonthKm').textContent =
+    dMes.reduce((s,e)=>s+(e.km||0),0).toLocaleString('pt-BR') + ' km';
+
+  document.getElementById('heroNet').textContent = fmt(mInc - mExp);
+
+  document.getElementById('heroSub').textContent =
+    `${dMes.length} dia(s) registrado(s) este mês`;
 }
 
 window.setFiltro = (f, btn) => {
