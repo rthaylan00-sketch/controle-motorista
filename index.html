@@ -336,7 +336,8 @@ onAuthStateChanged(auth, async (user) => {
   uid = user.uid;
   const snap = await getDoc(doc(db, 'usuarios', uid));
   const nome = snap.exists() ? snap.data().nome : user.email.split('@')[0];
-  document.getElementById('userName').textContent = nome.split(' ')[0];
+  document.getElementById('boasVindas').textContent =
+"👋 Olá, " + nome.split(' ')[0];
   document.getElementById('userAv').textContent   = nome[0].toUpperCase();
   document.getElementById('data').value = hoje();
   await carregarDados();
