@@ -339,29 +339,22 @@ onAuthStateChanged(auth, async (user) => {
   }
 
   const uid = user.uid;
-  console.log("UID:", uid);
 
-  try {
+  const snap = await getDoc(doc(db, "usuarios", uid));
 
-    const snap = await getDoc(doc(db, "usuarios", uid));
+  let nome = "";
 
-    console.log("Documento existe:", snap.exists());
-
-    if (snap.exists()) {
-
-      const dados = snap.data();
-      console.log("Dados:", dados);
-
-      const nome = dados.nome;
-
-      document.getElementById("boasVindas").textContent =
-        "👋 Olá, " + nome;
-
-    }
-
-  } catch (erro) {
-    console.error("Erro ao buscar usuário:", erro);
+  if (snap.exists()) {
+    const dados = snap.data();
+    nome = dados.nome;
+  } else {
+    nome = user.email;
   }
+
+  console.log("Nome encontrado:", nome);
+
+  document.getElementById("boasVindas").textContent =
+    "👋 Olá, " + nome;
 
 });
 
