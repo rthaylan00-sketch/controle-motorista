@@ -332,31 +332,18 @@ const catLabel = {
 };
 
 onAuthStateChanged(auth, async (user) => {
-
-  if (!user) {
-    window.location.href = "./login.html";
-    return;
-  }
-
-  const uid = user.uid;
-
-  const snap = await getDoc(doc(db, "usuarios", uid));
-
-  let nome = "";
-
-  if (snap.exists()) {
-    const dados = snap.data();
-    nome = dados.nome;
-  } else {
-    nome = user.email;
-  }
-
-  console.log("Nome encontrado:", nome);
-
-  document.getElementById("boasVindas").textContent =
-    "👋 Olá, " + nome;
-
+  if (!user) { window.location.href = './login.html'; return; }
+  uid = user.uid;
+console.log("UID:", uid);
+console.log("Dados:", snap.data());  
+  const snap = await getDoc(doc(db, 'usuarios', uid));
+  const nome = snap.exists() ? snap.data().nome : user.email.split('@')[0];
+  document.getElementById('boasVindas').textContent = "👋 Olá, " + nome.split(' ')[0];
+  document.getElementById('userAv').textContent   = nome[0].toUpperCase();
+  document.getElementById('data').value = hoje();
+  await carregarDados();
 });
+
 
 window.logout = async () => { await signOut(auth); window.location.href = './login.html'; };
 
