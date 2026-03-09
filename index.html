@@ -511,6 +511,7 @@ function renderHistorico() {
   el.innerHTML = lista.map(e => {
     const net = (e.ganho||0) - (e.totalGastos||0);
     const pos = net >= 0;
+    const ganhoKm = e.km > 0 ? (e.ganho / e.km).toFixed(2).replace(".", ",") : "0,00";
 
     const chips = [
       e.km > 0 ? `<span class="chip">🛣️ ${e.km} km</span>` : '',
@@ -524,6 +525,9 @@ function renderHistorico() {
         <div class="hi-net ${pos?'pos':'neg'}">${fmt(net)}</div>
         <div class="hi-chips">${chips}</div>
       </div>
+      <div class="hi-km">
+       💰 R$ ${ganhoKm} / km
+       </div>
       <div class="hi-r">
         <div class="hi-vals">
           <span style="color:var(--green)">+${fmt(e.ganho||0)}</span><br>
