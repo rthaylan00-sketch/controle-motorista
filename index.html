@@ -514,7 +514,8 @@ function renderHistorico() {
     const ganhoKm = e.km > 0 ? (e.ganho / e.km).toFixed(2).replace(".", ",") : "0,00";
 
     const chips = [
-      e.km > 0 ? `<span class="chip">🛣️ ${e.km} • km 💰 R$ ${ganhoKm}/km</span>` : '',
+      e.km > 0 ? `<span class="chip">🛣️ ${e.km} km</span>` : '',
+      e.km > 0 ? `<span class="chip">💰 R$ ${ganhoKm}/km</span>` : '',
       ...(e.gastos || []).map(g => `<span class="chip">${catLabel[g.categoria]||g.categoria} ${fmt(g.valor)}</span>`)
     ].join('');
 
