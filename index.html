@@ -517,8 +517,6 @@ function renderHistorico() {
 
   e.km > 0 ? `<span class="chip">🛣️ ${e.km} km</span>` : '',
 
-  e.km > 0 ? `<span class="chip">💰 R$ ${ganhoKm}/km</span>` : '',
-
   ...(e.gastos || []).map(g => `
     <span class="chip">
       ${catLabel[g.categoria] || '💸'} ${fmt(g.valor)}
