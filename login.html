@@ -171,6 +171,8 @@ Não tem conta? <a href="#">Criar conta</a>
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
+/* CONFIG FIREBASE */
+
 const firebaseConfig = {
   apiKey: "AIzaSyBHfI8CE9eMUQ99JM_XAjEkiuFMDoz3M8I",
   authDomain: "controle-pro-motorista.firebaseapp.com",
@@ -180,10 +182,14 @@ const firebaseConfig = {
   appId: "1:991201688036:web:fac529d7c0e7cad826eff1"
 };
 
+/* INICIAR FIREBASE */
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-window.login = async function(){
+/* FUNÇÃO LOGIN */
+
+async function login(){
 
 const email = document.getElementById("email").value
 const senha = document.getElementById("senha").value
@@ -197,6 +203,8 @@ try{
 
 await signInWithEmailAndPassword(auth,email,senha)
 
+/* abriu app */
+
 window.location.href="index.html"
 
 }catch(e){
@@ -207,7 +215,10 @@ alert("Email ou senha incorretos")
 
 }
 
-</script>
+/* deixa função disponível no botão */
 
+window.login = login
+
+</script>
 </body>
 </html>
