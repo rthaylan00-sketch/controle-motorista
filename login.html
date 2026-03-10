@@ -1,107 +1,185 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login</title>
+
+<title>Login - Controle Pro Motorista</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
+
+/* usa as mesmas cores do seu app */
+
+:root{
+--green:#00c853;
+--green-border:rgba(0,200,83,0.18);
+--bg:#070b07;
+--s1:#0e130e;
+--s2:#131a13;
+--text:#e8f0e8;
+--muted:#4e644e;
+}
+
 body{
-  margin:0;
-  font-family: Arial;
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background: linear-gradient(135deg,#00c853,#00695c);
+font-family:'DM Sans',sans-serif;
+background:var(--bg);
+color:var(--text);
+display:flex;
+align-items:center;
+justify-content:center;
+min-height:100vh;
+margin:0;
 }
 
-.box{
-  background:white;
-  padding:30px;
-  border-radius:15px;
-  width:320px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.2);
+/* container */
+
+.login-page{
+width:100%;
+max-width:420px;
+padding:20px;
 }
 
-h2{
-  text-align:center;
-  color:#333;
+/* card */
+
+.login-box{
+background:var(--s1);
+border:1px solid var(--green-border);
+border-radius:22px;
+padding:30px 24px;
+display:flex;
+flex-direction:column;
+gap:16px;
 }
 
-input{
-  width:100%;
-  padding:12px;
-  margin:10px 0;
-  border-radius:8px;
-  border:1px solid #ccc;
+/* logo */
+
+.login-logo{
+font-family:'Syne',sans-serif;
+font-size:28px;
+font-weight:800;
+text-align:center;
 }
 
-button{
-  width:100%;
-  padding:12px;
-  margin-top:10px;
-  border-radius:8px;
-  border:none;
-  background:#00c853;
-  color:white;
-  font-weight:bold;
+.login-sub{
+text-align:center;
+font-size:13px;
+color:var(--muted);
+margin-bottom:10px;
 }
 
-.link{
-  text-align:center;
-  margin-top:10px;
-  cursor:pointer;
-  color:#00695c;
+/* fields */
+
+.field{
+display:flex;
+flex-direction:column;
+gap:5px;
 }
+
+.field label{
+font-size:11px;
+text-transform:uppercase;
+color:var(--muted);
+font-weight:600;
+}
+
+.field input{
+padding:12px;
+border-radius:11px;
+border:1px solid var(--green-border);
+background:var(--s2);
+color:var(--text);
+font-size:14px;
+outline:none;
+}
+
+.field input:focus{
+border-color:var(--green);
+}
+
+/* botão */
+
+.login-btn{
+margin-top:10px;
+padding:14px;
+border:none;
+border-radius:13px;
+background:var(--green);
+color:#000;
+font-family:'Syne',sans-serif;
+font-weight:800;
+cursor:pointer;
+font-size:14px;
+transition:.2s;
+}
+
+.login-btn:hover{
+background:#00e564;
+transform:translateY(-1px);
+}
+
+/* criar conta */
+
+.login-create{
+text-align:center;
+font-size:12px;
+color:var(--muted);
+margin-top:8px;
+}
+
+.login-create a{
+color:var(--green);
+text-decoration:none;
+font-weight:600;
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="box">
-<h2>Controle Pro</h2>
+<div class="login-page">
 
-<input type="email" id="email" placeholder="Email">
-<input type="password" id="senha" placeholder="Senha">
+<div class="login-box">
 
-<button onclick="login()">Entrar</button>
+<div class="login-logo">🚗 Controle Pro</div>
+<div class="login-sub">Entre na sua conta</div>
 
-<div class="link" onclick="irCadastro()">Criar conta</div>
+<div class="field">
+<label>Email</label>
+<input type="email" id="email" placeholder="Digite seu email">
 </div>
 
-<script type="module">
+<div class="field">
+<label>Senha</label>
+<input type="password" id="senha" placeholder="Digite sua senha">
+</div>
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword } 
-from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+<button class="login-btn" onclick="login()">Entrar</button>
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBHfI8CE9eMUQ99JM_XAjEkiuFMDoz3M8I",
-  authDomain: "controle-pro-motorista.firebaseapp.com",
-  projectId: "controle-pro-motorista",
-  storageBucket: "controle-pro-motorista.firebasestorage.app",
-  messagingSenderId: "991201688036",
-  appId: "1:991201688036:web:fac529d7c0e7cad826eff1"
-};
+<div class="login-create">
+Não tem conta? <a href="#">Criar conta</a>
+</div>
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+</div>
 
-window.login = async function(){
+</div>
 
-  const emailInput = document.getElementById("email").value;
-  const senhaInput = document.getElementById("senha").value;
+<script>
 
-  try {
-    await signInWithEmailAndPassword(auth, emailInput, senhaInput);
-    window.location.href = "index.html";
-  } catch (error) {
-    alert(error.message);
-  }
+function login(){
+
+const email = document.getElementById("email").value
+const senha = document.getElementById("senha").value
+
+if(!email || !senha){
+alert("Preencha email e senha")
+return
 }
-window.irCadastro = function(){
-  window.location.href = "./cadastro.html";
+
+alert("Login funcionando (conectar com Firebase depois)")
+
 }
 
 </script>
