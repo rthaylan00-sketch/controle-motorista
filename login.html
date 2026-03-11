@@ -1,69 +1,83 @@
+62419"}
 <!DOCTYPE html>
-
 <html lang="pt-BR">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Login – Controle Pro</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
 <style>
-:root {
-  --green: #00c853;
-  --green-border: rgba(0,200,83,0.18);
-  --green-dim: rgba(0,200,83,0.1);
-  --bg: #070b07;
-  --s1: #0e130e;
-  --s2: #131a13;
-  --s3: #192019;
-  --text: #e8f0e8;
-  --muted: #4e644e;
-  --red: #ff4757;
-}
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-body {
-  font-family:'DM Sans',sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  min-height:100vh;
-  padding:20px;
+
+:root{
+--green:#00c853;
+--green-border:rgba(0,200,83,0.18);
+--green-dim:rgba(0,200,83,0.1);
+--bg:#070b07;
+--s1:#0e130e;
+--s2:#131a13;
+--s3:#192019;
+--text:#e8f0e8;
+--muted:#4e644e;
+--red:#ff4757;
 }
 
-.wrap {
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'DM Sans',sans-serif;
+background:var(--bg);
+color:var(--text);
+display:flex;
+align-items:center;
+justify-content:center;
+min-height:100vh;
+padding:20px;
+}
+
+.wrap{
 width:100%;
 max-width:400px;
 animation:fadeUp .4s ease both;
 }
 
-.logo-area {
+.logo-area{
 text-align:center;
 margin-bottom:32px;
 }
-.logo {
-font-family:‘Syne’,sans-serif;
+
+.logo{
+font-family:'Syne',sans-serif;
 font-size:26px;
 font-weight:800;
-color:var(–green);
+color:var(--green);
 letter-spacing:-.5px;
 }
-.logo-sub {
+
+.logo-sub{
 font-size:13px;
-color:var(–muted);
+color:var(--muted);
 margin-top:4px;
 font-weight:500;
 }
 
-.card {
-background:var(–s1);
-border:1px solid var(–green-border);
+.card{
+background:var(--s1);
+border:1px solid var(--green-border);
 border-radius:24px;
 padding:28px 24px;
 }
 
-.card-title {
-font-family:‘Syne’,sans-serif;
+.card-title{
+font-family:'Syne',sans-serif;
 font-size:18px;
 font-weight:800;
 margin-bottom:22px;
@@ -71,180 +85,227 @@ display:flex;
 align-items:center;
 gap:9px;
 }
-.card-bar { width:3px; height:18px; background:var(–green); border-radius:2px; flex-shrink:0; }
 
-.field { margin-bottom:13px; }
-.field label {
+.card-bar{
+width:3px;
+height:18px;
+background:var(--green);
+border-radius:2px;
+}
+
+.field{
+margin-bottom:13px;
+}
+
+.field label{
 display:block;
 font-size:10px;
 font-weight:600;
 text-transform:uppercase;
 letter-spacing:.7px;
-color:var(–muted);
+color:var(--muted);
 margin-bottom:6px;
 }
-.field input {
+
+.field input{
 width:100%;
 padding:13px 14px;
-background:var(–s2);
-border:1px solid var(–green-border);
+background:var(--s2);
+border:1px solid var(--green-border);
 border-radius:11px;
-color:var(–text);
+color:var(--text);
 font-size:15px;
-font-family:‘DM Sans’,sans-serif;
+font-family:'DM Sans',sans-serif;
 outline:none;
-transition:border-color .2s, background .2s;
 }
-.field input:focus { border-color:var(–green); background:var(–s3); }
-.field input::placeholder { color:#3a4e3a; }
 
-.btn-save {
+.field input:focus{
+border-color:var(--green);
+background:var(--s3);
+}
+
+.field input::placeholder{
+color:#3a4e3a;
+}
+
+.btn-save{
 width:100%;
 padding:14px;
-background:var(–green);
+background:var(--green);
 color:#000;
 border:none;
 border-radius:13px;
-font-family:‘Syne’,sans-serif;
+font-family:'Syne',sans-serif;
 font-size:14px;
 font-weight:800;
 cursor:pointer;
-transition:.2s;
 margin-top:20px;
-letter-spacing:.2px;
 }
-.btn-save:hover { background:#00e564; transform:translateY(-1px); box-shadow:0 8px 28px rgba(0,200,83,.28); }
-.btn-save:active { transform:translateY(0); }
-.btn-save:disabled { opacity:.45; cursor:not-allowed; transform:none; box-shadow:none; }
 
-.footer-link {
+.btn-save:hover{
+background:#00e564;
+transform:translateY(-1px);
+}
+
+.btn-save:disabled{
+opacity:.45;
+cursor:not-allowed;
+}
+
+.footer-link{
 text-align:center;
 margin-top:18px;
 font-size:13px;
-color:var(–muted);
+color:var(--muted);
 }
-.footer-link a { color:var(–green); text-decoration:none; font-weight:600; }
-.footer-link a:hover { text-decoration:underline; }
 
-.toast {
+.footer-link a{
+color:var(--green);
+text-decoration:none;
+font-weight:600;
+}
+
+.footer-link a:hover{
+text-decoration:underline;
+}
+
+.toast{
 position:fixed;
 bottom:24px;
 left:50%;
 transform:translateX(-50%) translateY(80px);
 padding:12px 22px;
 border-radius:12px;
-font-family:‘Syne’,sans-serif;
+font-family:'Syne',sans-serif;
 font-size:13px;
 font-weight:700;
-z-index:999;
-pointer-events:none;
-transition:transform .32s cubic-bezier(.34,1.56,.64,1);
-white-space:nowrap;
+transition:.3s;
 }
-.toast.show { transform:translateX(-50%) translateY(0); }
-.toast.ok  { background:var(–green); color:#000; }
-.toast.err { background:var(–red);   color:#fff; }
 
-@keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+.toast.show{
+transform:translateX(-50%) translateY(0);
+}
+
+.toast.ok{
+background:var(--green);
+color:#000;
+}
+
+.toast.err{
+background:var(--red);
+color:#fff;
+}
+
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(16px)}
+to{opacity:1;transform:translateY(0)}
+}
+
 </style>
 
 </head>
+
 <body>
 
 <div class="wrap">
-  <div class="logo-area">
-    <div class="logo">🚗 Controle Pro</div>
-    <div class="logo-sub">Gestão financeira para motoristas</div>
-  </div>
 
-  <div class="card">
-    <div class="card-title"><div class="card-bar"></div> Entrar na conta</div>
-
-```
-<div class="field">
-  <label>📧 E-mail</label>
-  <input type="email" id="email" placeholder="seu@email.com">
-</div>
-<div class="field">
-  <label>🔒 Senha</label>
-  <input type="password" id="senha" placeholder="Sua senha">
+<div class="logo-area">
+<div class="logo">🚗 Controle Pro</div>
+<div class="logo-sub">Gestão financeira para motoristas</div>
 </div>
 
-<button class="btn-save" id="btnLogin">Entrar</button>
-```
+<div class="card">
 
-  </div>
+<div class="card-title">
+<div class="card-bar"></div>
+Entrar na conta
+</div>
 
-  <div class="footer-link">
-    Não tem conta? <a href="cadastro.html">Criar conta</a>
-  </div>
+<div class="field">
+<label>E-mail</label>
+<input type="email" id="email" placeholder="seu@email.com">
+</div>
+
+<div class="field">
+<label>Senha</label>
+<input type="password" id="senha" placeholder="Sua senha">
+</div>
+
+<button class="btn-save" id="btnLogin">
+Entrar
+</button>
+
+</div>
+
+<div class="footer-link">
+Não tem conta? <a href="cadastro.html">Criar conta</a>
+</div>
+
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBHfI8CE9eMUQ99JM_XAjEkiuFMDoz3M8I",
-  authDomain: "controle-pro-motorista.firebaseapp.com",
-  projectId: "controle-pro-motorista",
-  storageBucket: "controle-pro-motorista.firebasestorage.app",
-  messagingSenderId: "991201688036",
-  appId: "1:991201688036:web:fac529d7c0e7cad826eff1"
-};
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"
+import {getAuth,signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"
 
-const app  = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-function showToast(msg, type = 'ok') {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = `toast ${type} show`;
-  setTimeout(() => t.classList.remove('show'), 2800);
+const firebaseConfig={
+apiKey:"AIzaSyBHfI8CE9eMUQ99JM_XAjEkiuFMDoz3M8I",
+authDomain:"controle-pro-motorista.firebaseapp.com",
+projectId:"controle-pro-motorista",
+storageBucket:"controle-pro-motorista.appspot.com",
+messagingSenderId:"991201688036",
+appId:"1:991201688036:web:fac529d7c0e7cad826eff1"
 }
 
-async function login() {
-  const email = document.getElementById('email').value.trim();
-  const senha = document.getElementById('senha').value.trim();
-  const btn   = document.getElementById('btnLogin');
+const app=initializeApp(firebaseConfig)
+const auth=getAuth(app)
 
-  if (!email || !senha) {
-    showToast('Preencha e-mail e senha', 'err'); return;
-  }
-
-  btn.disabled = true;
-  btn.textContent = 'Entrando...';
-
-  try {
-    await signInWithEmailAndPassword(auth, email, senha);
-    showToast('✓ Bem-vindo!');
-    setTimeout(() => window.location.href = 'dashboard.html', 1000);
-  } catch (e) {
-    const msgs = {
-      'auth/user-not-found':   'E-mail não cadastrado.',
-      'auth/wrong-password':   'Senha incorreta.',
-      'auth/invalid-email':    'E-mail inválido.',
-      'auth/too-many-requests':'Muitas tentativas. Tente mais tarde.',
-      'auth/invalid-credential': 'E-mail ou senha incorretos.'
-    };
-    showToast(msgs[e.code] || 'Erro ao entrar.', 'err');
-    btn.disabled = false;
-    btn.textContent = 'Entrar';
-  }
+function showToast(msg,type='ok'){
+const t=document.getElementById('toast')
+t.textContent=msg
+t.className='toast '+type+' show'
+setTimeout(()=>t.classList.remove('show'),2800)
 }
 
-// Botão via addEventListener (sem onclick inline)
-document.getElementById('btnLogin').addEventListener('click', login);
+async function login(){
 
-// Enter nos campos
-['email', 'senha'].forEach(id => {
-  document.getElementById(id).addEventListener('keydown', e => {
-    if (e.key === 'Enter') login();
-  });
-});
+const email=document.getElementById('email').value.trim()
+const senha=document.getElementById('senha').value.trim()
+const btn=document.getElementById('btnLogin')
+
+if(!email||!senha){
+showToast('Preencha e-mail e senha','err')
+return
+}
+
+btn.disabled=true
+btn.textContent='Entrando...'
+
+try{
+
+await signInWithEmailAndPassword(auth,email,senha)
+
+showToast('Bem-vindo!')
+
+setTimeout(()=>{
+window.location.replace('dashboard.html')
+},800)
+
+}catch(e){
+
+showToast('E-mail ou senha incorretos','err')
+
+btn.disabled=false
+btn.textContent='Entrar'
+
+}
+
+}
+
+document.getElementById('btnLogin').addEventListener('click',login)
+
 </script>
 
 </body>
-</html>
