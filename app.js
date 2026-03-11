@@ -26,8 +26,6 @@ console.log(erro);
 
 }
 
-}
-
 
 // VERIFICAR USUÁRIO
 onAuthStateChanged(auth,(user)=>{
