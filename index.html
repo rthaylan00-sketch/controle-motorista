@@ -340,10 +340,12 @@ onAuthStateChanged(auth, async (user) => {
 });
 
 // ── Botão Sair (via addEventListener — sem onclick inline) ──
-document.getElementById('btnSair').addEventListener('click', async () => {
-  window.location.href = './index.html';
-  await signOut(auth);
+document.getElementById('btnSair').addEventListener('click', () => {
+  signOut(auth).finally(() => {
+    window.location.href = './index.html';
+  });
 });
+
 
 
 // ── Gastos ──
