@@ -10,9 +10,9 @@
 
 <input type="text" id="nome" placeholder="Seu nome">
 <input type="email" id="email" placeholder="Email">
-<input type="password" id="senha" placeholder="Senha">
+<input type="password" id="senha" placeholder=">
 
-<button type="button" onclick="cadastrar()">Cadastrar</button>
+<button id="btnCadastrar">Cadastrar</button>
 
 <script type="module">
 
@@ -62,6 +62,8 @@ window.cadastrar = async function(){
     alert(error.message);
   }
 }
+document.getElementById("btnCadastrar")
+.addEventListener("click", cadastrar);
 
 </script>
 
