@@ -1,171 +1,263 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Criar Conta</title>
-
+<title>Criar Conta – Controle Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
+:root {
+  --green: #00c853;
+  --green-dim: rgba(0,200,83,0.1);
+  --green-border: rgba(0,200,83,0.18);
+  --bg: #070b07;
+  --s1: #0e130e;
+  --s2: #131a13;
+  --s3: #192019;
+  --text: #e8f0e8;
+  --muted: #4e644e;
+  --muted2: #3a4e3a;
+  --red: #ff4757;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+body {
+  font-family:'DM Sans',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
 
-body{
-font-family: Arial;
-background:#0f172a;
+.wrap {
+width:100%;
+max-width:400px;
+animation:fadeUp .4s ease both;
+}
+
+.logo-area {
+text-align:center;
+margin-bottom:32px;
+}
+.logo {
+font-family:‘Syne’,sans-serif;
+font-size:26px;
+font-weight:800;
+color:var(–green);
+letter-spacing:-.5px;
+}
+.logo-sub {
+font-size:13px;
+color:var(–muted);
+margin-top:4px;
+font-weight:500;
+}
+
+.card {
+background:var(–s1);
+border:1px solid var(–green-border);
+border-radius:24px;
+padding:28px 24px;
+}
+
+.card-title {
+font-family:‘Syne’,sans-serif;
+font-size:18px;
+font-weight:800;
+margin-bottom:22px;
+display:flex;
+align-items:center;
+gap:9px;
+}
+.card-bar { width:3px; height:18px; background:var(–green); border-radius:2px; flex-shrink:0; }
+
+.field { margin-bottom:13px; }
+.field label {
+display:block;
+font-size:10px;
+font-weight:600;
+text-transform:uppercase;
+letter-spacing:.7px;
+color:var(–muted);
+margin-bottom:6px;
+}
+.field input {
+width:100%;
+padding:13px 14px;
+background:var(–s2);
+border:1px solid var(–green-border);
+border-radius:11px;
+color:var(–text);
+font-size:15px;
+font-family:‘DM Sans’,sans-serif;
+outline:none;
+transition:border-color .2s, background .2s;
+}
+.field input:focus { border-color:var(–green); background:var(–s3); }
+.field input::placeholder { color:var(–muted2); }
+
+.btn-save {
+width:100%;
+padding:14px;
+background:var(–green);
+color:#000;
+border:none;
+border-radius:13px;
+font-family:‘Syne’,sans-serif;
+font-size:14px;
+font-weight:800;
+cursor:pointer;
+transition:.2s;
 display:flex;
 align-items:center;
 justify-content:center;
-height:100vh;
-margin:0;
+gap:7px;
+letter-spacing:.2px;
+margin-top:20px;
 }
+.btn-save:hover { background:#00e564; transform:translateY(-1px); box-shadow:0 8px 28px rgba(0,200,83,.28); }
+.btn-save:active { transform:translateY(0); }
+.btn-save:disabled { opacity:.45; cursor:not-allowed; transform:none; box-shadow:none; }
 
-.container{
-background:#1e293b;
-padding:30px;
-border-radius:10px;
-width:320px;
-box-shadow:0 0 15px rgba(0,0,0,0.4);
-}
-
-h2{
-color:white;
+.footer-link {
 text-align:center;
-margin-bottom:20px;
+margin-top:18px;
+font-size:13px;
+color:var(–muted);
 }
+.footer-link a { color:var(-green); text-decoration:none; font-weight:600; }
+.footer-link a:hover { text-decoration:underline; }
 
-input{
-width:100%;
-padding:12px;
-margin-bottom:12px;
-border:none;
-border-radius:6px;
-font-size:15px;
+.toast {
+position:fixed;
+bottom:24px;
+left:50%;
+transform:translateX(-50%) translateY(80px);
+padding:12px 22px;
+border-radius:12px;
+font-family:‘Syne’,sans-serif;
+font-size:13px;
+font-weight:700;
+z-index:999;
+pointer-events:none;
+transition:transform .32s cubic-bezier(.34,1.56,.64,1);
+white-space:nowrap;
 }
+.toast.show { transform:translateX(-50%) translateY(0); }
+.toast.ok { background:var(–green); color:#000; }
+.toast.err { background:var(–red); color:#fff; }
 
-button{
-width:100%;
-padding:12px;
-background:#22c55e;
-border:none;
-border-radius:6px;
-font-size:16px;
-color:white;
-cursor:pointer;
-font-weight:bold;
-}
-
-button:hover{
-background:#16a34a;
-}
-
-.login{
-text-align:center;
-margin-top:15px;
-color:#cbd5f5;
-}
-
-a{
-color:#38bdf8;
-text-decoration:none;
-}
-
+@keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
 </style>
 
 </head>
 <body>
 
-<div class="container">
+<div class="wrap">
+  <div class="logo-area">
+    <div class="logo">Controle Pro</div>
+    <div class="logo-sub">Gestão financeira para motoristas</div>
+  </div>
 
-<h2>Criar Conta</h2>
+  <div class="card">
+    <div class="card-title"><div class="card-bar"></div> Criar conta</div>
 
-<input type="text" id="nome" placeholder="Seu nome">
-
-<input type="email" id="email" placeholder="Email">
-
-<input type="password" id="senha" placeholder="Senha">
-  
-<div class="login">
-Já tem conta? <a href="login.html">Entrar</a>
+```
+<div class="field">
+  <label>👤 Seu nome</label>
+  <input type="text" id="nome" placeholder="Ex: João Silva">
+</div>
+<div class="field">
+  <label>📧 E-mail</label>
+  <input type="email" id="email" placeholder="seu@email.com">
+</div>
+<div class="field">
+  <label>🔒 Senha</label>
+  <input type="password" id="senha" placeholder="Mínimo 6 caracteres">
 </div>
 
+<button class="btn-save" id="btnCadastrar">✓ &nbsp;Criar conta</button>
+```
+
+  </div>
+
+  <div class="footer-link">
+    Já tem conta? <a href="login.html">Entrar</a>
+  </div>
 </div>
+
+<div class="toast" id="toast"></div>
 
 <script type="module">
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-
-import {
-  getAuth,
-  createUserWithEmailAndPassword
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-import {
-  getFirestore,
-  doc,
-  setDoc
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBHfI8CE9eMUQ99JM_XAjEkiuFMDoz3M8I",
   authDomain: "controle-pro-motorista.firebaseapp.com",
   projectId: "controle-pro-motorista",
-  storageBucket: "controle-pro-motorista.appspot.com",
+  storageBucket: "controle-pro-motorista.firebasestorage.app",
   messagingSenderId: "991201688036",
   appId: "1:991201688036:web:fac529d7c0e7cad826eff1"
 };
 
-const app = initializeApp(firebaseConfig);
+const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore(app);
+const db   = getFirestore(app);
 
-const botao = document.getElementById("btnCadastrar");
-
-botao.onclick = async () => {
-
-const nome = document.getElementById("nome").value.trim();
-const email = document.getElementById("email").value.trim();
-const senha = document.getElementById("senha").value.trim();
-
-if(!nome || !email || !senha){
-alert("Preencha todos os campos");
-return;
+function showToast(msg, type = 'ok') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast ${type} show`;
+  setTimeout(() => t.classList.remove('show'), 2800);
 }
 
-if(senha.length < 6){
-alert("A senha precisa ter pelo menos 6 caracteres");
-return;
+async function cadastrar() {
+  const nome  = document.getElementById('nome').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const senha = document.getElementById('senha').value.trim();
+  const btn   = document.getElementById('btnCadastrar');
+
+  if (!nome || !email || !senha) {
+    showToast('Preencha todos os campos', 'err'); return;
+  }
+  if (senha.length < 6) {
+    showToast('Senha precisa ter ao menos 6 caracteres', 'err'); return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Criando conta...';
+
+  try {
+    const cred = await createUserWithEmailAndPassword(auth, email, senha);
+    await setDoc(doc(db, 'usuarios', cred.user.uid), { nome, email });
+    showToast('✓ Conta criada! Redirecionando...');
+    setTimeout(() => window.location.href = './index.html', 1600);
+  } catch (e) {
+    const msgs = {
+      'auth/email-already-in-use': 'Este e-mail já está cadastrado.',
+      'auth/invalid-email': 'E-mail inválido.',
+      'auth/weak-password': 'Senha muito fraca.'
+    };
+    showToast(msgs[e.code] || 'Erro: ' + e.message, 'err');
+    btn.disabled = false;
+    btn.innerHTML = '✓ &nbsp;Criar conta';
+  }
 }
 
-botao.innerText = "Criando...";
-botao.disabled = true;
+document.getElementById('btnCadastrar').addEventListener('click', cadastrar);
 
-try{
-
-const userCredential = await createUserWithEmailAndPassword(auth,email,senha);
-const user = userCredential.user;
-
-await setDoc(doc(db,"usuarios",user.uid),{
-nome:nome,
-email:email
+// Permite pressionar Enter nos campos
+['nome','email','senha'].forEach(id => {
+  document.getElementById(id).addEventListener('keydown', e => {
+    if (e.key === 'Enter') cadastrar();
+  });
 });
-
-alert("Conta criada com sucesso!");
-
-window.location.href = "app.html";
-
-}catch(error){
-
-alert("Erro: " + error.message);
-
-}
-
-botao.innerText = "Cadastrar";
-botao.disabled = false;
-
-};
-
 </script>
+
 </body>
-  
 </html>
