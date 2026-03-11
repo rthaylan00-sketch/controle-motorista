@@ -18,9 +18,11 @@ await signInWithEmailAndPassword(auth, email, senha);
 
 window.location.href = "index.html";
 
-}catch(erro){
+}
+catch(erro){
 
-alert("Erro no login");
+alert(erro.message);
+console.log(erro);
 
 }
 
@@ -51,3 +53,12 @@ await signOut(auth);
 window.location.href = "login.html";
 
 }
+onAuthStateChanged(auth,(user)=>{
+
+if(!user){
+
+window.location.href = "login.html";
+
+}
+
+});
