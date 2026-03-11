@@ -96,33 +96,34 @@ Já tem conta? <a href="login.html">Entrar</a>
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 
-import { 
-getAuth,
-createUserWithEmailAndPassword
+import {
+  getAuth,
+  createUserWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 import {
-getFirestore,
-doc,
-setDoc
+  getFirestore,
+  doc,
+  setDoc
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 
 const firebaseConfig = {
-apiKey: "SUA_API_KEY",
-authDomain: "controle-pro-motorista.firebaseapp.com",
-projectId: "controle-pro-motorista",
-storageBucket: "controle-pro-motorista.appspot.com",
-messagingSenderId: "991201688036",
-appId: "1:991201688036:web:fac529d7c0e7cad826eff1"
+  apiKey: "AIzaSyBHfI8CE9eMUQ99JM_XAjEkiuFMDoz3M8I",
+  authDomain: "controle-pro-motorista.firebaseapp.com",
+  projectId: "controle-pro-motorista",
+  storageBucket: "controle-pro-motorista.appspot.com",
+  messagingSenderId: "991201688036",
+  appId: "1:991201688036:web:fac529d7c0e7cad826eff1"
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+const botao = document.getElementById("btnCadastrar");
 
-async function cadastrar(){
+botao.onclick = async () => {
 
 const nome = document.getElementById("nome").value.trim();
 const email = document.getElementById("email").value.trim();
@@ -137,6 +138,9 @@ if(senha.length < 6){
 alert("A senha precisa ter pelo menos 6 caracteres");
 return;
 }
+
+botao.innerText = "Criando...";
+botao.disabled = true;
 
 try{
 
@@ -158,11 +162,11 @@ alert("Erro: " + error.message);
 
 }
 
-}
+botao.innerText = "Cadastrar";
+botao.disabled = false;
 
-document.getElementById("btnCadastrar").addEventListener("click", cadastrar);
+};
 
 </script>
-
 </body>
 </html>
