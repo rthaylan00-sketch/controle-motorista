@@ -90,7 +90,7 @@ animation:fadeUp .35s ease both;
 /* ─── Fields ─── */
 .fields-2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 .field { margin-bottom:11px; }
-.field label { display:block; font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:.7px; color:var(–muted); margin-bottom:6px; }
+.field label { display:block; font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:.7px; color:var(--muted); margin-bottom:6px; }
 .field input, .field select {
 width:100%; padding:12px 13px;
 background:var(--s2); border:1px solid var(--green-border);
@@ -174,7 +174,7 @@ display:flex; align-items:center; justify-content:center; gap:7px; letter-spacin
 .empty { padding:48px 20px; text-align:center; color:var(--muted); }
 .empty-icon { font-size:40px; margin-bottom:10px; opacity:.35; }
 .empty-txt { font-size:13px; font-weight:500; }
-.loading { display:flex; align-items:center; justify-content:center; gap:10px; padding:44px; color:var(–muted); font-size:13px; }
+.loading { display:flex; align-items:center; justify-content:center; gap:10px; padding:44px; color:var(--muted); font-size:13px; }
 .spin { width:18px; height:18px; border:2px solid var(--green-border); border-top-color:var(--green); border-radius:50%; animation:spin .7s linear infinite; }
 @keyframes spin { to{transform:rotate(360deg)} }
 
@@ -339,7 +339,7 @@ onAuthStateChanged(auth, async (user) => {
   console.log("Dados:", snap.data()); 
   const nome = snap.data()?.nome || user.email.split('@')[0];
   document.getElementById('boasVindas').textContent = "👋 Olá, " + nome.split(' ')[0];
-  document.getElementById('userAv').textContent   = nome[0].toUpperCase();
+  //document.getElementById('userAv').textContent   = nome[0].toUpperCase();
   document.getElementById('data').value = hoje();
   await carregarDados();
 });
