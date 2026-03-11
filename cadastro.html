@@ -12,7 +12,7 @@
 <input type="email" id="email" placeholder="Email">
 <input type="password" id="senha" placeholder="Senha">
 
-<button onclick="cadastrar()">Cadastrar</button>
+<button type="button" onclick="cadastrar()">Cadastrar</button>
 
 <script type="module">
 
@@ -36,9 +36,15 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 window.cadastrar = async function(){
+
   const nome = document.getElementById("nome").value;
   const email = document.getElementById("email").value;
   const senha = document.getElementById("senha").value;
+
+  if(!nome || !email || !senha){
+    alert("Preencha todos os campos");
+    return;
+  }
 
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
