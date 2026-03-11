@@ -1,3 +1,4 @@
+console.log("APP CARREGOU");
 import { auth } from "./firebase.js";
 
 import { 
