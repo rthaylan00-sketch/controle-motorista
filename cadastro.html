@@ -84,7 +84,7 @@ text-decoration:none;
 
 <input type="password" id="senha" placeholder="Senha">
 
-<button id="btnCadastrar">Cadastrar</button>
+<button id="btnCadastrar" type="button">Cadastrar</button>
 
 <div class="login">
 Já tem conta? <a href="login.html">Entrar</a>
@@ -109,80 +109,58 @@ setDoc
 
 
 const firebaseConfig = {
-apiKey: "AIzaSyBHfI8CE9eMUQ99JM_XAjEkiuFMDoz3M8I",
+apiKey: "SUA_API_KEY",
 authDomain: "controle-pro-motorista.firebaseapp.com",
 projectId: "controle-pro-motorista",
-storageBucket: "controle-pro-motorista.firebasestorage.app",
+storageBucket: "controle-pro-motorista.appspot.com",
 messagingSenderId: "991201688036",
 appId: "1:991201688036:web:fac529d7c0e7cad826eff1"
 };
 
 const app = initializeApp(firebaseConfig);
-
 const auth = getAuth(app);
-
 const db = getFirestore(app);
 
 
 async function cadastrar(){
 
-  alert("botão clicado");
-
 const nome = document.getElementById("nome").value.trim();
-
 const email = document.getElementById("email").value.trim();
-
 const senha = document.getElementById("senha").value.trim();
 
-
 if(!nome || !email || !senha){
-
 alert("Preencha todos os campos");
-
 return;
-
 }
 
 if(senha.length < 6){
-
 alert("A senha precisa ter pelo menos 6 caracteres");
-
 return;
-
 }
 
 try{
 
 const userCredential = await createUserWithEmailAndPassword(auth,email,senha);
-
 const user = userCredential.user;
 
 await setDoc(doc(db,"usuarios",user.uid),{
-
 nome:nome,
-
 email:email
-
 });
 
 alert("Conta criada com sucesso!");
 
-window.location.href="./index.html";
+window.location.href = "app.html";
+
+}catch(error){
+
+alert("Erro: " + error.message);
 
 }
 
-catch(error){
-
-alert(error.message);
-
 }
 
-}
-
-
-document
-.getElementById("btnCadastrar")
-.addEventListener("click",cadastrar);
+document.getElementById("btnCadastrar").addEventListener("click", cadastrar);
 
 </script>
 
