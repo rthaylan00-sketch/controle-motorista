@@ -339,7 +339,6 @@ onAuthStateChanged(auth, async (user) => {
   console.log("Dados:", snap.data()); 
   const nome = snap.data()?.nome || user.email.split('@')[0];
   document.getElementById('boasVindas').textContent = "👋 Olá, " + nome.split(' ')[0];
-  //document.getElementById('userAv').textContent   = nome[0].toUpperCase();
   document.getElementById('data').value = hoje();
   await carregarDados();
 });
