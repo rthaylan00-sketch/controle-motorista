@@ -1,132 +1,138 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
-
 <meta charset="UTF-8">
-
-<title>DriveControl Pro</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Controle Pro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-
 </head>
-
 <body>
 
 <div class="topbar">
-
-<div class="logo">🚗 Controle Pro</div>
-
-<button onclick="logout()" class="btn-sair">
-Sair
-</button>
-
+  <div class="logo">🚗 Controle Pro</div>
+  <button onclick="logout()" class="btn-sair">Sair</button>
 </div>
-
 
 <div class="card-principal">
-
-<span>LUCRO LÍQUIDO DO MÊS</span>
-
-<h2>R$ 0,00</h2>
-
+  <div class="card-principal-left">
+    <span class="label-small">LUCRO LÍQUIDO DO MÊS</span>
+    <h2 id="lucro-liquido">R$ 0,00</h2>
+    <span class="label-calc" id="label-calc">Calculando...</span>
+  </div>
+  <button class="btn-mes-atual" id="btn-mes-atual">💵 Mês atual</button>
 </div>
-
 
 <div class="cards">
-
-<div class="card">
-<span>💰 GANHOS HOJE</span>
-<h3>R$ 0</h3>
+  <div class="card">
+    <span class="card-label">💰 GANHOS HOJE</span>
+    <h3 class="card-value green" id="ganhos-hoje">R$ 0</h3>
+  </div>
+  <div class="card">
+    <span class="card-label">🛢️ GASTOS HOJE</span>
+    <h3 class="card-value red" id="gastos-hoje">R$ 0</h3>
+  </div>
+  <div class="card">
+    <span class="card-label">📅 GANHOS MÊS</span>
+    <h3 class="card-value green" id="ganhos-mes">R$ 0</h3>
+  </div>
+  <div class="card">
+    <span class="card-label">🛣️ KM MÊS</span>
+    <h3 class="card-value white" id="km-mes">0 km</h3>
+  </div>
 </div>
-
-<div class="card">
-<span>🛢 GASTOS HOJE</span>
-<h3 style="color:#ff5252">R$ 0</h3>
-</div>
-
-<div class="card">
-<span>📅 GANHOS MÊS</span>
-<h3>R$ 0</h3>
-</div>
-
-<div class="card">
-<span>🛣 KM MÊS</span>
-<h3>0 km</h3>
-</div>
-
-</div>
-
 
 <div class="registrar">
+  <h3 class="section-title"><span class="accent-bar"></span> Registrar Dia</h3>
 
-<h3>Registrar Dia</h3>
+  <div class="inputs-row">
+    <div class="input-group">
+      <label>💰 GANHOS R$</label>
+      <input id="input-ganhos" type="number" placeholder="0,00">
+    </div>
+    <div class="input-group">
+      <label>🛣️ KM RODADOS</label>
+      <input id="input-km" type="number" placeholder="0">
+    </div>
+  </div>
 
-<div class="inputs">
+  <div class="input-group full">
+    <label>📅 DATA</label>
+    <input id="input-data" type="date">
+  </div>
 
-<input placeholder="Ganhos R$">
+  <div class="gastos-label">GASTOS DO DIA</div>
 
-<input placeholder="KM rodados">
+  <div class="inputs-row gastos-row">
+    <div class="input-group wide">
+      <label>CATEGORIA</label>
+      <select id="input-categoria">
+        <option value="">Selecione</option>
+        <option value="combustivel">⛽ Combustível</option>
+        <option value="manutencao">🔧 Manutenção</option>
+        <option value="alimentacao">🍔 Alimentação</option>
+        <option value="pedagio">🛣️ Pedágio</option>
+        <option value="lavagem">🚿 Lavagem</option>
+        <option value="outros">📦 Outros</option>
+      </select>
+    </div>
+    <div class="input-group narrow">
+      <label>VALOR R$</label>
+      <input id="input-valor" type="number" placeholder="0,00">
+    </div>
+    <button class="btn-add" id="btn-add-gasto">+</button>
+  </div>
+
+  <div id="gastos-chips" class="gastos-chips"></div>
+
+<button class="btn-salvar" id="btn-salvar">✔ Salvar Dia</button>
 
 </div>
-
-<input placeholder="Data">
-
-<br><br>
-
-<div class="inputs">
-
-<select>
-
-<option>Combustível</option>
-<option>Manutenção</option>
-<option>Alimentação</option>
-
-</select>
-
-<input placeholder="Valor R$">
-
-</div>
-
-<button class="btn-add">+</button>
-
-<button class="btn-salvar">
-
-✔ Salvar Dia
-
-</button>
-
-</div>
-
 
 <div class="historico">
-
-<h3>Histórico</h3>
-
-<p>Carregando...</p>
-
+  <div class="historico-header">
+    <h3>Histórico</h3>
+    <div class="filtros">
+      <button class="filtro active" data-filtro="todos">Todos</button>
+      <button class="filtro" data-filtro="mes">Mês</button>
+      <button class="filtro" data-filtro="semana">Semana</button>
+    </div>
+  </div>
+  <div id="historico-lista">
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <span>Carregando...</span>
+    </div>
+  </div>
 </div>
-
-<button onclick="logout()">Sair</button>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 
 <script src="firebase.js"></script>
+
 <script src="app.js"></script>
 
 <script>
-
 auth.onAuthStateChanged(user => {
+  if (!user) {
+    window.location.href = "login.html";
+  }
+});
 
-if(!user){
-
-window.location.href = "login.html"
-
-}
-
-})
-
+// Filtros do histórico
+document.querySelectorAll('.filtro').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filtro').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    // Chame sua função de filtro aqui, ex: filtrarHistorico(btn.dataset.filtro)
+  });
+});
 </script>
 
-</body
+</body>
+</html>
