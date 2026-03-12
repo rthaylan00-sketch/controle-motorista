@@ -37,5 +37,13 @@ function logout(){
 auth.signOut().then(()=>{
 window.location.href = "login.html"
 })
+auth.onAuthStateChanged(function(user){
 
+if(!user && window.location.pathname.includes("index")){
+window.location.href = "login.html"
 }
+
+})
+}
+
+
