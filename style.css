@@ -1,21 +1,167 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family: Arial, Helvetica, sans-serif;
+}
+
 body{
 
-font-family: Arial;
-text-align:center;
-margin-top:100px;
+background:#020b06;
+color:white;
+padding:20px;
 
 }
 
-input{
+/* TOPO */
 
-padding:10px;
-width:250px;
+.topbar{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
 
 }
 
-button{
+.logo{
 
-padding:10px 20px;
-cursor:pointer;
+font-size:22px;
+font-weight:bold;
+
+}
+
+.btn-sair{
+
+background:transparent;
+border:1px solid #1aff7a;
+color:#1aff7a;
+padding:8px 16px;
+border-radius:12px;
+
+}
+
+/* CARD PRINCIPAL */
+
+.card-principal{
+
+background:linear-gradient(135deg,#0a8f3f,#15d46a);
+padding:25px;
+border-radius:20px;
+margin-bottom:20px;
+
+}
+
+.card-principal h2{
+
+font-size:40px;
+margin-top:10px;
+
+}
+
+/* CARDS */
+
+.cards{
+
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+margin-bottom:20px;
+
+}
+
+.card{
+
+background:#071b12;
+padding:20px;
+border-radius:18px;
+border:1px solid #0d3d26;
+
+}
+
+.card span{
+
+color:#8cffc3;
+font-size:14px;
+
+}
+
+.card h3{
+
+margin-top:5px;
+font-size:22px;
+
+}
+
+/* REGISTRAR DIA */
+
+.registrar{
+
+background:#071b12;
+padding:25px;
+border-radius:20px;
+border:1px solid #0d3d26;
+margin-bottom:20px;
+
+}
+
+.registrar h3{
+
+margin-bottom:15px;
+
+}
+
+.inputs{
+
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+margin-bottom:10px;
+
+}
+
+input, select{
+
+width:100%;
+padding:12px;
+border-radius:12px;
+border:1px solid #0d3d26;
+background:#04150d;
+color:white;
+
+}
+
+.btn-add{
+
+background:#0c8c46;
+border:none;
+padding:12px;
+border-radius:12px;
+color:white;
+font-size:18px;
+
+}
+
+.btn-salvar{
+
+width:100%;
+margin-top:15px;
+padding:16px;
+border:none;
+border-radius:14px;
+background:#14d86c;
+font-size:18px;
+font-weight:bold;
+
+}
+
+/* HISTORICO */
+
+.historico{
+
+background:#071b12;
+padding:20px;
+border-radius:20px;
+border:1px solid #0d3d26;
 
 }
