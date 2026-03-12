@@ -1,1 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
 
+<meta charset="UTF-8">
+
+<title>Criar conta</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<h2>Criar conta</h2>
+
+<input type="email" id="email" placeholder="Digite seu email">
+
+<br><br>
+
+<input type="password" id="senha" placeholder="Digite sua senha">
+
+<br><br>
+
+<button onclick="cadastrar()">Cadastrar</button>
+
+<p id="msg"></p>
+
+<p><a href="login.html">Voltar para login</a></p>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+
+<script src="firebase.js"></script>
+<script src="app.js"></script>
+
+</body>
