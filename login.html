@@ -1,131 +1,82 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
-  <meta name="theme-color" content="#0d1117"/>
-  <title>DriveControl Pro — Login</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="style.css"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - DriveControl Pro</title>
+<link rel="stylesheet" href="style.css">
 </head>
-<body class="auth-page">
 
-  <div class="auth-bg">
-    <div class="auth-orb orb1"></div>
-    <div class="auth-orb orb2"></div>
-    <div class="auth-orb orb3"></div>
-  </div>
+<body>
 
-  <div class="auth-container">
-    <div class="auth-logo">
-      <div class="auth-logo-icon">🚗</div>
-      <h1>DriveControl<br/><span>Pro</span></h1>
-      <p>Painel do motorista profissional</p>
-    </div>
+<h2>Entrar</h2>
 
-```
-<div class="auth-card">
-  <h2 class="auth-card-title">Entrar na conta</h2>
+<input type="email" id="email" placeholder="Seu e-mail">
+<br><br>
 
-  <div class="field-group">
-    <label class="field-label">E-mail</label>
-    <input class="field-input" type="email" id="email" placeholder="seu@email.com"/>
-  </div>
-  <div class="field-group">
-    <label class="field-label">Senha</label>
-    <input class="field-input" type="password" id="senha" placeholder="••••••••"/>
-  </div>
+<input type="password" id="senha" placeholder="Sua senha">
+<br><br>
 
-  <button class="btn-primary full" id="btn-entrar">Entrar</button>
-  <div class="divider"><span>ou</span></div>
-  <button class="btn-google full" id="btn-google">
-    <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20H24v8h11.3C33.7 33.3 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.7 1.1 7.8 2.9l5.7-5.7C33.8 6.5 29.2 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20c11 0 19.5-8 19.5-20 0-1.3-.1-2.7-.4-4z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.5 15.5 18.9 12 24 12c3 0 5.7 1.1 7.8 2.9l5.7-5.7C33.8 6.5 29.2 4 24 4 16.3 4 9.7 8.4 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-1.9 13.5-5l-6.2-5.2C29.4 35.5 26.8 36 24 36c-5.2 0-9.7-3.6-11.3-8.5l-6.6 5.1C9.7 39.5 16.3 44 24 44z"/><path fill="#1565C0" d="M43.6 20H24v8h11.3c-.8 2.2-2.2 4.1-4 5.4l6.2 5.2C41.2 35.1 44 29.9 44 24c0-1.3-.1-2.7-.4-4z"/></svg>
-    Entrar com Google
-  </button>
+<button onclick="login()">Entrar</button>
+<br><br>
 
-  <p class="auth-link">Não tem conta? <a href="cadastro.html">Cadastre-se grátis</a></p>
-  <div id="msg" class="auth-msg hidden"></div>
-</div>
-```
+<button onclick="loginGoogle()">Entrar com Google</button>
 
-  </div>
+<p id="msg"></p>
 
-  <!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script>
 
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+const firebaseConfig = {
+    apiKey: "AIzaSyBHfI8CE9eMUQ99JM_XAjEkiuFMDoz3M8I",
+    authDomain: "controle-pro-motorista.firebaseapp.com",
+    projectId: "controle-pro-motorista",
+    storageBucket: "controle-pro-motorista.firebasestorage.app",
+    messagingSenderId: "991201688036",
+    appId: "1:991201688036:web:fac529d7c0e7cad826eff1"
+  };
 
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
 
-  <script>
-    // ---- Config Firebase inline (sem depender de firebase.js) ----
-    const firebaseConfig = {
-      apiKey:            "AIzaSyBHfI8CE9eMUQ99JM_XAjEkiuFMDoz3M8I",
-      authDomain:        "controle-pro-motorista.firebaseapp.com",
-      projectId:         "controle-pro-motorista",
-      storageBucket:     "controle-pro-motorista.firebasestorage.app",
-      messagingSenderId: "991201688036",
-      appId:             "1:991201688036:web:fac529d7c0e7cad826eff1"
-    };
+auth.onAuthStateChanged(user => {
+if(user){
+window.location.href = "index.html";
+}
+});
 
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
+function login(){
 
-    // Redireciona se já estiver logado
-    auth.onAuthStateChanged(user => {
-      if (user) window.location.href = 'index.html';
-    });
+const email = document.getElementById("email").value;
+const senha = document.getElementById("senha").value;
 
-    function mostrarMsg(texto, ok) {
-      const el = document.getElementById('msg');
-      el.textContent = texto;
-      el.className = 'auth-msg' + (ok ? ' ok' : '');
-      el.classList.remove('hidden');
-    }
+auth.signInWithEmailAndPassword(email, senha)
+.then(()=>{
+window.location.href="index.html";
+})
+.catch(error=>{
+document.getElementById("msg").innerText = error.message;
+});
 
-    function traduzirErro(code) {
-      const e = {
-        'auth/user-not-found':         'Usuário não encontrado.',
-        'auth/wrong-password':         'Senha incorreta.',
-        'auth/invalid-email':          'E-mail inválido.',
-        'auth/invalid-credential':     'E-mail ou senha incorretos.',
-        'auth/too-many-requests':      'Muitas tentativas. Tente mais tarde.',
-        'auth/network-request-failed': 'Sem conexão. Verifique sua internet.',
-        'auth/popup-closed-by-user':   'Login cancelado.',
-      };
-      return e[code] || 'Erro: ' + code;
-    }
+}
 
-    document.getElementById('btn-entrar').addEventListener('click', function() {
-      const email = document.getElementById('email').value.trim();
-      const senha = document.getElementById('senha').value;
-      if (!email || !senha) return mostrarMsg('Preencha e-mail e senha.');
-      this.textContent = 'Entrando...';
-      auth.signInWithEmailAndPassword(email, senha)
-        .then(() => window.location.href = 'index.html')
-        .catch(err => {
-          mostrarMsg(traduzirErro(err.code));
-          document.getElementById('btn-entrar').textContent = 'Entrar';
-        });
-    });
+function loginGoogle(){
 
-    document.getElementById('btn-google').addEventListener('click', function() {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      auth.signInWithPopup(provider)
-        .then(() => window.location.href = 'index.html')
-        .catch(err => mostrarMsg(traduzirErro(err.code)));
-    });
+const provider = new firebase.auth.GoogleAuthProvider();
 
-    // Enter para logar
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Enter') document.getElementById('btn-entrar').click();
-    });
-    document.getElementById('btn-entrar').addEventListener('click', function() {
-  console.log("clicou no entrar");
-  </script>
+auth.signInWithPopup(provider)
+.then(()=>{
+window.location.href="index.html";
+})
+.catch(error=>{
+document.getElementById("msg").innerText = error.message;
+});
+
+}
+
+</script>
 
 </body>
 </html>
