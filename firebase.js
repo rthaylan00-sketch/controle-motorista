@@ -1,3 +1,8 @@
+// firebase.js
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
 const firebaseConfig = {
   apiKey: "AIzaSyA829hZRNAJ_2xXYJkWW4skWiZLs6Zyc38",
   authDomain: "drivecontrol-pro.firebaseapp.com",
@@ -7,12 +12,6 @@ const firebaseConfig = {
   appId: "1:367865364380:web:d3a69977e438ca76861259"
 };
 
-// Inicializar Firebase
-firebase.initializeApp(firebaseConfig);
-
-// Ativar autenticação
-const auth = firebase.auth();
-
-// Ativar Firestore
-const db = firebase.firestore();
-
+const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+export const db = getFirestore(app);
