@@ -12,3 +12,7 @@ firebase.initializeApp(firebaseConfig);
 
 // Ativar autenticação
 const auth = firebase.auth();
+
+// Ativar Firestore
+const db = firebase.firestore();
+
