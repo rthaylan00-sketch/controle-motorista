@@ -19,6 +19,27 @@ if (btnLogin) {
    .catch(error => { document.getElementById("msg").innerText = error.message;});
  });
 }
+if (btnCadastrar) {
+  brnCadastrar.addEventListener("click". () => {
+     const email = document.getElementById("email").value;
+     const senha = document.getElementById("senha").value;
+
+  singInWithEmailAndPassword(auth, email, senha)
+   .then(() => { window.location.href = "index.html"; })
+   .catch(error => { document.getElementById("msg").innerText = error.message;});
+ });
+}
+if (btnLogout) {
+  brnLogout.addEventListener("click". () => {
+     const email = document.getElementById("email").value;
+     const senha = document.getElementById("senha").value;
+
+  singInWithEmailAndPassword(auth, email, senha)
+   .then(() => { window.location.href = "index.html"; })
+   .catch(error => { document.getElementById("msg").innerText = error.message;});
+ });
+}
+
   
   
                         
