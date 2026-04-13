@@ -40,7 +40,6 @@ export function logout() {
 }
 
 // ========== GASTOS TEMPORÁRIOS ==========
-
 let gastosTemp = [];
 
 document.getElementById("btn-add-gasto")?.addEventListener("click", () => {
@@ -104,3 +103,4 @@ document.getElementById("btn-salvar")?.addEventListener("click", async () => {
   document.getElementById("input-km").value = "";
   document.getElementById("input-data").value = "";
 });
+
