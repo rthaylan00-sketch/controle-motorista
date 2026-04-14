@@ -10,7 +10,7 @@ const btnCadastrar = document.getElementById("btn-cadastrar");
 const btnLogout = document.getElementById("btn-logout")
 
 if (btnLogin) {
-  brnLogin.addEventListener("click". () => {
+  btnLogin.addEventListener("click". () => {
      const email = document.getElementById("email").value;
      const senha = document.getElementById("senha").value;
 
@@ -20,23 +20,18 @@ if (btnLogin) {
  });
 }
 if (btnCadastrar) {
-  brnCadastrar.addEventListener("click". () => {
+  btnCadastrar.addEventListener("click". () => {
      const email = document.getElementById("email").value;
      const senha = document.getElementById("senha").value;
 
-  singInWithEmailAndPassword(auth, email, senha)
+  createWithEmailAndPassword(auth, email, senha)
    .then(() => { window.location.href = "index.html"; })
    .catch(error => { document.getElementById("msg").innerText = error.message;});
  });
 }
 if (btnLogout) {
-  brnLogout.addEventListener("click". () => {
-     const email = document.getElementById("email").value;
-     const senha = document.getElementById("senha").value;
-
-  singInWithEmailAndPassword(auth, email, senha)
-   .then(() => { window.location.href = "index.html"; })
-   .catch(error => { document.getElementById("msg").innerText = error.message;});
+  btnLogout.addEventListener("click". () => {
+    signOut(auth).then(() => { window.location.href = "login.html"; })
  });
 }
 
