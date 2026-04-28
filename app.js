@@ -130,6 +130,18 @@ async function carregarHistorico() {
     lista.appendChild(item);
   });
 }
+onAuthStateChanged(auth, user => {
+  if (user) {
+    carregarHistorico();
+  }
+});
+
+
+
+
+
+
+
 
 
 
