@@ -1,11 +1,5 @@
-// app.js
 import { auth, db } from "./firebase.js";
-import {
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {
   collection,
   addDoc,
@@ -15,9 +9,11 @@ import {
   getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+// Usuário fica guardado aqui quando o Firebase confirmar o login
+let usuarioAtual = null;
+
 const btnSalvar = document.getElementById("btn-salvar");
 const btnAddGasto = document.getElementById("btn-add-gasto");
-
 let gastosTemp = [];
 
 if (btnAddGasto) {
@@ -54,10 +50,10 @@ function renderizarChips() {
     });
   });
 }
+
 if (btnSalvar) {
   btnSalvar.addEventListener("click", async () => {
-    const user = auth.currentUser;
-    if (!user) return alert("Usuário não autenticado!");
+    if (!usuarioAtual) return alert("Usuário não autenticado!");
 
     const ganhos = parseFloat(document.getElementById("input-ganhos").value) || 0;
     const km = parseFloat(document.getElementById("input-km").value) || 0;
@@ -69,7 +65,7 @@ if (btnSalvar) {
 
     try {
       await addDoc(collection(db, "registros"), {
-        uid: user.uid,
+        uid: usuarioAtual.uid,
         data,
         ganhos,
         km,
@@ -92,9 +88,6 @@ if (btnSalvar) {
 }
 
 async function carregarHistorico() {
-  const user = auth.currentUser;
-  if (!user) return;
-
   const lista = document.getElementById("historico-lista");
   if (!lista) return;
 
@@ -102,7 +95,7 @@ async function carregarHistorico() {
 
   const q = query(
     collection(db, "registros"),
-    where("uid", "==", user.uid),
+    where("uid", "==", usuarioAtual.uid),
     orderBy("data", "desc")
   );
 
@@ -130,22 +123,12 @@ async function carregarHistorico() {
     lista.appendChild(item);
   });
 }
+
 onAuthStateChanged(auth, user => {
   if (user) {
+    usuarioAtual = user;
     carregarHistorico();
+  } else {
+    usuarioAtual = null;
   }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
