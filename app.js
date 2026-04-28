@@ -96,7 +96,8 @@ onAuthStateChanged(auth, user => {
   if (user) {
     usuarioAtual = user;
     carregarHistorico();
-
+    
+alert("onAuthStateChanged rodou! usuário: " + user.email);
     if (btnSalvar) {
       btnSalvar.addEventListener("click", async () => {
         const ganhos = parseFloat(document.getElementById("input-ganhos").value) || 0;
