@@ -111,21 +111,5 @@
 <script type="module" src="auth.js"></script>
 <script type="module" src="app.js"></script>
 
-<script type="module">
-import { auth } from "./firebase.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-onAuthStateChanged(auth, user => {
-  if (!user) window.location.href = "login.html";
-});
-
-document.querySelectorAll('.filtro').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filtro').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-  });
-});
-</script>
-
 </body>
 </html>
