@@ -763,3 +763,31 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
     transition-duration: 0.01ms !important;
   }
 }
+.historico-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.historico-data {
+  font-size: 0.85rem;
+  color: #aaa;
+}
+
+.btn-apagar {
+  background: transparent;
+  border: none;
+  color: #ff4444;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.historico-porKm {
+  margin-top: 6px;
+  font-size: 0.85rem;
+  color: #7ed957;
+  font-weight: 600;
+}
+
