@@ -2,37 +2,49 @@
 <html lang="pt-BR">
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>DriveControl - Login</title>
+  <title>DriveControl - Login</title>
 
-<link rel="stylesheet" href="style.css">
+  <!-- CSS do login -->
+  <link rel="stylesheet" href="login.css">
 
 </head>
 
 <body>
 
-<h2>Login</h2>
+  <div class="login-box">
 
-<input type="email" id="email" placeholder="Digite seu email">
+    <h2>DriveControl</h2>
 
-<br><br>
+    <input 
+      type="email" 
+      id="email" 
+      placeholder="Digite seu email"
+    >
 
-<input type="password" id="senha" placeholder="Digite sua senha">
+    <input 
+      type="password" 
+      id="senha" 
+      placeholder="Digite sua senha"
+    >
 
-<br><br>
+    <button id="btn-login">
+      Entrar
+    </button>
 
-<button id="btn-login">Entrar</button>
+    <p>
+      Não tem conta? 
+      <a href="cadastro.html">Criar conta</a>
+    </p>
 
-<p>Não tem conta? <a href="cadastro.html">Criar conta</a></p>
+    <p id="msg"></p>
 
-<p id="msg"></p>
-<script type="module" src="auth.js"></script>
+  </div>
 
-
-
-
+  <!-- SCRIPT -->
+  <script type="module" src="auth.js"></script>
 
 </body>
 </html>
