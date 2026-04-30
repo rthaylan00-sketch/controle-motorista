@@ -14,6 +14,7 @@
   --red:#ff5252;
 
   --text-muted:#6dbf96;
+  --text-dim:#2a5c3f;
   --text-white:#fff;
 
   --radius:16px;
@@ -27,16 +28,83 @@ body{
   font-family:'DM Sans',sans-serif;
 }
 
-/* ─── CARDS ───────────────────────── */
-.card,.registrar,.historico{
-  background:var(--bg-card);
+/* ─── TOPBAR ───────────────────────── */
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:20px;
+}
+
+.logo{
+  font-family:'Syne';
+  font-weight:800;
+}
+
+.btn-sair{
+  background:transparent;
   border:1px solid var(--border);
-  border-radius:var(--radius);
-  padding:16px;
+  color:var(--text-muted);
+  padding:6px 14px;
+  border-radius:20px;
+}
+
+/* ─── CARD PRINCIPAL ───────────────────────── */
+.card-principal{
+  background:linear-gradient(135deg,#083d1c,#0d8c44);
+  padding:20px;
+  border-radius:20px;
   margin-bottom:12px;
 }
 
-/* ─── TABS ───────────────────────── */
+.card-principal h2{
+  font-size:32px;
+  font-family:'Syne';
+}
+
+/* ─── CARDS ───────────────────────── */
+.cards{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.card{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  padding:14px;
+  border-radius:14px;
+}
+
+.card-value.green{color:var(--green);}
+.card-value.red{color:var(--red);}
+
+/* ─── REGISTRAR ───────────────────────── */
+.registrar{
+  background:var(--bg-card);
+  padding:16px;
+  border-radius:16px;
+  margin-top:12px;
+}
+
+/* ─── BOTÃO ───────────────────────── */
+.btn-salvar{
+  width:100%;
+  padding:14px;
+  background:linear-gradient(135deg,var(--green-mid),var(--green));
+  border:none;
+  border-radius:12px;
+  font-weight:bold;
+}
+
+/* ─── HISTÓRICO ───────────────────────── */
+.historico{
+  margin-top:14px;
+  background:var(--bg-card);
+  padding:16px;
+  border-radius:16px;
+}
+
+/* ─── TABS MELHORADAS ───────────────────────── */
 .filtros{
   display:flex;
   gap:6px;
@@ -60,7 +128,7 @@ body{
   color:#000;
 }
 
-/* ─── RESUMO ───────────────────────── */
+/* ─── RESUMO (NOVO) ───────────────────────── */
 .resumo-periodo{
   background:#051a0e;
   border-radius:16px;
@@ -90,13 +158,30 @@ body{
   color:#fff;
 }
 
-/* ─── HISTÓRICO ───────────────────────── */
+.resumo-km{
+  margin-top:10px;
+  font-size:13px;
+  color:var(--green);
+}
+
+.resumo-msg{
+  margin-top:6px;
+  font-size:12px;
+  color:var(--text-muted);
+}
+
+/* ─── HISTÓRICO ITEM ───────────────────────── */
 .historico-item{
   background:var(--bg-input);
   border:1px solid var(--border);
   border-radius:12px;
   padding:12px;
   margin-bottom:8px;
+}
+
+.historico-topo{
+  display:flex;
+  justify-content:space-between;
 }
 
 .historico-data{
@@ -112,15 +197,4 @@ body{
 .historico-km{
   font-size:12px;
   color:var(--text-muted);
-}
-
-/* ─── BOTÃO ───────────────────────── */
-.btn-salvar{
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:12px;
-  background:linear-gradient(135deg,var(--green-mid),var(--green));
-  color:#000;
-  font-weight:bold;
 }
