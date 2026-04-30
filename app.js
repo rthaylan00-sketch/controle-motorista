@@ -1,171 +1,77 @@
-import { auth, db } from "./firebase.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import {
-  collection,
-  addDoc,
-  query,
-  where,
-  orderBy,
-  getDocs,
-  deleteDoc,
-  doc
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-let usuarioAtual = null;
-let gastosTemp = [];
-
-const btnSalvar = document.getElementById("btn-salvar");
-const btnAddGasto = document.getElementById("btn-add-gasto");
-
-if (btnAddGasto) {
-  btnAddGasto.addEventListener("click", () => {
-    const categoria = document.getElementById("input-categoria").value;
-    const valor = parseFloat(document.getElementById("input-valor").value);
-
-    if (!categoria || !valor) return alert("Preencha categoria e valor!");
-
-    gastosTemp.push({ categoria, valor });
-    renderizarChips();
-
-    document.getElementById("input-categoria").value = "";
-    document.getElementById("input-valor").value = "";
-  });
-}
-
-function renderizarChips() {
-  const container = document.getElementById("gastos-chips");
-  if (!container) return;
-  container.innerHTML = "";
-
-  gastosTemp.forEach((g, i) => {
-    const chip = document.createElement("div");
-    chip.className = "chip";
-    chip.innerHTML = `${g.categoria} R$ ${g.valor.toFixed(2)} <span data-index="${i}">✕</span>`;
-    container.appendChild(chip);
-  });
-
-  container.querySelectorAll("span").forEach(span => {
-    span.addEventListener("click", () => {
-      gastosTemp.splice(parseInt(span.dataset.index), 1);
-      renderizarChips();
-    });
-  });
-}
-
-async function carregarHistorico() {
+function renderizarTela() {
   const lista = document.getElementById("historico-lista");
-  if (!lista || !usuarioAtual) return;
+  const resumo = document.getElementById("resumo-periodo");
 
-  lista.innerHTML = "<p>Carregando...</p>";
+  const hoje = new Date().toISOString().split("T")[0];
 
-  try {
-    const q = query(
-      collection(db, "registros"),
-      where("uid", "==", usuarioAtual.uid),
-      orderBy("data", "desc")
-    );
+  let filtrados = [];
 
-    const snapshot = await getDocs(q);
+  if (filtroAtual === "hoje") {
+    filtrados = dadosCache.filter(d => d.data === hoje);
+  }
 
-    if (snapshot.empty) {
-      lista.innerHTML = "<p style='text-align:center;color:#888'>Nenhum registro ainda.</p>";
-      return;
-    }
+  if (filtroAtual === "semana") {
+    const agora = new Date();
+    filtrados = dadosCache.filter(d => {
+      const data = new Date(d.data);
+      const diff = (agora - data) / (1000 * 60 * 60 * 24);
+      return diff <= 7;
+    });
+  }
 
-    lista.innerHTML = "";
+  if (filtroAtual === "mes") {
+    const mesAtual = hoje.slice(0, 7);
+    filtrados = dadosCache.filter(d => d.data.startsWith(mesAtual));
+  }
 
-    snapshot.forEach(doc => {
-  const d = doc.data();
-  const id = doc.id;
+  // =====================
+  // CALCULOS
+  // =====================
+  let ganhos = 0;
+  let gastos = 0;
+  let km = 0;
 
-  // Formatar data
-  const [ano, mes, dia] = d.data.split("-");
-  const dataFormatada = new Date(ano, mes - 1, dia).toLocaleDateString("pt-BR", {
-    day: "numeric",
-    month: "long",
-    year: "numeric"
+  filtrados.forEach(d => {
+    ganhos += d.ganhos || 0;
+    gastos += d.totalGastos || 0;
+    km += d.km || 0;
   });
 
-  // Calcular R$/km
-  const porKm = d.km > 0 ? (d.ganhos / d.km).toFixed(2) : "—";
+  const lucro = ganhos - gastos;
+  const porKm = km > 0 ? (ganhos / km).toFixed(2) : 0;
 
-  const item = document.createElement("div");
-  item.className = "historico-item";
-  item.innerHTML = `
-    <div class="historico-topo">
-      <span class="historico-data">${dataFormatada}</span>
-      <button class="btn-apagar" data-id="${id}">✕</button>
+  // =====================
+  // RESUMO
+  // =====================
+  let mensagem = "";
+
+  if (filtroAtual === "hoje") {
+    if (porKm >= 3.5) mensagem = "🔥 Excelente dia!";
+    else if (porKm >= 3) mensagem = "👍 Bom resultado";
+    else mensagem = "⚠️ Pode melhorar";
+  }
+
+  resumo.innerHTML = `
+    <div class="resumo-lucro">R$ ${lucro.toFixed(2)}</div>
+    <div class="resumo-grid">
+      <div class="resumo-item">Ganhos <strong>R$ ${ganhos.toFixed(2)}</strong></div>
+      <div class="resumo-item">Gastos <strong>R$ ${gastos.toFixed(2)}</strong></div>
     </div>
-    <div class="historico-valores">
-      <span class="green">+R$ ${d.ganhos.toFixed(2)}</span>
-      <span class="red">-R$ ${d.totalGastos.toFixed(2)}</span>
-      <span>${d.km} km</span>
-    </div>
-    <div class="historico-porKm">R$ ${porKm}/km</div>
+    <div class="resumo-km">🚗 ${km} km • R$ ${porKm}/km</div>
+    ${mensagem ? `<div class="resumo-msg">${mensagem}</div>` : ""}
   `;
-  lista.appendChild(item);
-});
 
-// Botões de apagar
-lista.querySelectorAll(".btn-apagar").forEach(btn => {
-  btn.addEventListener("click", async () => {
-    const id = btn.dataset.id;
-    if (confirm("Apagar este registro?")) {
-      await deleteDoc(doc(db, "registros", id));
-      carregarHistorico();
-    }
-  });
-});
+  // =====================
+  // HISTORICO
+  // =====================
+  lista.innerHTML = "";
 
-
-  } catch (erro) {
-    lista.innerHTML = "<p>Erro: " + erro.message + "</p>";
+  if (filtrados.length === 0) {
+    lista.innerHTML = "<p style='text-align:center;color:#888'>Sem dados.</p>";
+    return;
   }
 
-}
+  filtrados.forEach(d => {
+    const item = document.createElement("div");
 
-onAuthStateChanged(auth, user => {
-  if (user) {
-    usuarioAtual = user;
-    carregarHistorico();
-    
-alert("onAuthStateChanged rodou! usuário: " + user.email);
-    if (btnSalvar) {
-      btnSalvar.addEventListener("click", async () => {
-        const ganhos = parseFloat(document.getElementById("input-ganhos").value) || 0;
-        const km = parseFloat(document.getElementById("input-km").value) || 0;
-        const data = document.getElementById("input-data").value;
-
-        if (!data) return alert("Informe a data!");
-
-        const totalGastos = gastosTemp.reduce((acc, g) => acc + g.valor, 0);
-
-        try {
-          await addDoc(collection(db, "registros"), {
-            uid: usuarioAtual.uid,
-            data,
-            ganhos,
-            km,
-            gastos: gastosTemp,
-            totalGastos,
-            criadoEm: new Date()
-          });
-
-          alert("Dia salvo com sucesso!");
-          gastosTemp = [];
-          renderizarChips();
-          document.getElementById("input-ganhos").value = "";
-          document.getElementById("input-km").value = "";
-          document.getElementById("input-data").value = "";
-          carregarHistorico();
-
-        } catch (erro) {
-          alert("Erro ao salvar: " + erro.message);
-        }
-      });
-    }
-
-  } else {
-    usuarioAtual = null;
-  }
-});
+    const porKmItem = d.km > 0 ? (d
