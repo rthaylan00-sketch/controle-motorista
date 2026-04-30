@@ -6,7 +6,9 @@ import {
   query,
   where,
   orderBy,
-  getDocs
+  getDocs,
+  deleteDoc,
+  doc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 let usuarioAtual = null;
@@ -73,19 +75,48 @@ async function carregarHistorico() {
     lista.innerHTML = "";
 
     snapshot.forEach(doc => {
-      const d = doc.data();
-      const item = document.createElement("div");
-      item.className = "historico-item";
-      item.innerHTML = `
-        <div class="historico-data">${d.data}</div>
-        <div class="historico-valores">
-          <span class="green">+R$ ${d.ganhos.toFixed(2)}</span>
-          <span class="red">-R$ ${d.totalGastos.toFixed(2)}</span>
-          <span>${d.km} km</span>
-        </div>
-      `;
-      lista.appendChild(item);
-    });
+  const d = doc.data();
+  const id = doc.id;
+
+  // Formatar data
+  const [ano, mes, dia] = d.data.split("-");
+  const dataFormatada = new Date(ano, mes - 1, dia).toLocaleDateString("pt-BR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  });
+
+  // Calcular R$/km
+  const porKm = d.km > 0 ? (d.ganhos / d.km).toFixed(2) : "—";
+
+  const item = document.createElement("div");
+  item.className = "historico-item";
+  item.innerHTML = `
+    <div class="historico-topo">
+      <span class="historico-data">${dataFormatada}</span>
+      <button class="btn-apagar" data-id="${id}">✕</button>
+    </div>
+    <div class="historico-valores">
+      <span class="green">+R$ ${d.ganhos.toFixed(2)}</span>
+      <span class="red">-R$ ${d.totalGastos.toFixed(2)}</span>
+      <span>${d.km} km</span>
+    </div>
+    <div class="historico-porKm">R$ ${porKm}/km</div>
+  `;
+  lista.appendChild(item);
+});
+
+// Botões de apagar
+lista.querySelectorAll(".btn-apagar").forEach(btn => {
+  btn.addEventListener("click", async () => {
+    const id = btn.dataset.id;
+    if (confirm("Apagar este registro?")) {
+      await deleteDoc(doc(db, "registros", id));
+      carregarHistorico();
+    }
+  });
+});
+
 
   } catch (erro) {
     lista.innerHTML = "<p>Erro: " + erro.message + "</p>";
