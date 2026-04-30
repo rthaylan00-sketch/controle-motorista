@@ -88,8 +88,9 @@ async function carregarHistorico() {
     });
 
   } catch (erro) {
-    lista.innerHTML = "<p>Erro ao carregar dados.</p>";
+    lista.innerHTML = "<p>Erro: " + erro.message + "</p>";
   }
+
 }
 
 onAuthStateChanged(auth, user => {
