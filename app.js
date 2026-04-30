@@ -163,24 +163,22 @@ lista.innerHTML = “”;
 dados.forEach(d => {
 const [ano, mes, dia] = d.data.split(”-”);
 const dataFormatada = new Date(ano, mes - 1, dia).toLocaleDateString(“pt-BR”);
-
-```
 const lucro = d.ganhos - d.totalGastos;
 const porKm = d.km > 0 ? (d.ganhos / d.km).toFixed(2) : "--";
 
 const item = document.createElement("div");
 item.className = "historico-item";
-item.innerHTML = `
+item.innerHTML = 
   <div class="historico-topo">
     <span class="historico-data">${dataFormatada}</span>
     <button class="btn-apagar" data-id="${d.id}">&#x2715;</button>
   </div>
   <div class="historico-lucro">💵 R$ ${lucro.toFixed(2)}</div>
   <div class="historico-km">${d.km} km • R$ ${porKm}/km</div>
-`;
+;
 
 lista.appendChild(item);
-```
+
 
 });
 
