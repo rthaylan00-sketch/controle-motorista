@@ -9,111 +9,122 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1a7a3a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Controle Pro">
 </head>
 <body>
 
 <div class="topbar">
-  <div class="logo">🚗 Controle Pro</div>
-  <button id="btn-logout" class="btn-sair">Sair</button>
+ <div class="logo">🚗 Controle Pro</div>
+ <button id="btn-logout" class="btn-sair">Sair</button>
 </div>
 
 <div class="card-principal">
-  <div class="card-principal-left">
-    <span class="label-small">LUCRO LÍQUIDO DO MÊS</span>
-    <h2 id="lucro-liquido">R$ 0,00</h2>
-    <span class="label-calc" id="label-calc">Calculando...</span>
-  </div>
-  <button class="btn-mes-atual" id="btn-mes-atual">💵 Mês atual</button>
+ <div class="card-principal-left">
+   <span class="label-small">LUCRO LÍQUIDO DO MÊS</span>
+   <h2 id="lucro-liquido">R$ 0,00</h2>
+   <span class="label-calc" id="label-calc">Calculando...</span>
+ </div>
+ <button class="btn-mes-atual" id="btn-mes-atual">💵 Mês atual</button>
 </div>
 
 <div class="cards">
-  <div class="card">
-    <span class="card-label">💰 GANHOS HOJE</span>
-    <h3 class="card-value green" id="ganhos-hoje">R$ 0</h3>
-  </div>
-  <div class="card">
-    <span class="card-label">🛢️ GASTOS HOJE</span>
-    <h3 class="card-value red" id="gastos-hoje">R$ 0</h3>
-  </div>
-  <div class="card">
-    <span class="card-label">📅 GANHOS MÊS</span>
-    <h3 class="card-value green" id="ganhos-mes">R$ 0</h3>
-  </div>
-  <div class="card">
-    <span class="card-label">🛣️ KM MÊS</span>
-    <h3 class="card-value white" id="km-mes">0 km</h3>
-  </div>
+ <div class="card">
+   <span class="card-label">💰 GANHOS HOJE</span>
+   <h3 class="card-value green" id="ganhos-hoje">R$ 0</h3>
+ </div>
+ <div class="card">
+   <span class="card-label">🛢️ GASTOS HOJE</span>
+   <h3 class="card-value red" id="gastos-hoje">R$ 0</h3>
+ </div>
+ <div class="card">
+   <span class="card-label">📅 GANHOS MÊS</span>
+   <h3 class="card-value green" id="ganhos-mes">R$ 0</h3>
+ </div>
+ <div class="card">
+   <span class="card-label">🛣️ KM MÊS</span>
+   <h3 class="card-value white" id="km-mes">0 km</h3>
+ </div>
 </div>
 
 <div class="registrar">
-  <h3 class="section-title"><span class="accent-bar"></span> Registrar Dia</h3>
+ <h3 class="section-title"><span class="accent-bar"></span> Registrar Dia</h3>
 
-  <div class="inputs-row">
-    <div class="input-group">
-      <label>💰 GANHOS R$</label>
-      <input id="input-ganhos" type="number" placeholder="0,00">
-    </div>
-    <div class="input-group">
-      <label>🛣️ KM RODADOS</label>
-      <input id="input-km" type="number" placeholder="0">
-    </div>
-  </div>
+ <div class="inputs-row">
+   <div class="input-group">
+     <label>💰 GANHOS R$</label>
+     <input id="input-ganhos" type="number" placeholder="0,00">
+   </div>
+   <div class="input-group">
+     <label>🛣️ KM RODADOS</label>
+     <input id="input-km" type="number" placeholder="0">
+   </div>
+ </div>
 
-  <div class="input-group full">
-    <label>📅 DATA</label>
-    <input id="input-data" type="date">
-  </div>
+ <div class="input-group full">
+   <label>📅 DATA</label>
+   <input id="input-data" type="date">
+ </div>
 
-  <div class="gastos-label">GASTOS DO DIA</div>
+ <div class="gastos-label">GASTOS DO DIA</div>
 
-  <div class="inputs-row gastos-row">
-    <div class="input-group wide">
-      <label>CATEGORIA</label>
-      <select id="input-categoria">
-        <option value="">Selecione</option>
-        <option value="combustivel">⛽ Combustível</option>
-        <option value="manutencao">🔧 Manutenção</option>
-        <option value="alimentacao">🍔 Alimentação</option>
-        <option value="pedagio">🛣️ Pedágio</option>
-        <option value="lavagem">🚿 Lavagem</option>
-        <option value="outros">📦 Outros</option>
-      </select>
-    </div>
-    <div class="input-group narrow">
-      <label>VALOR R$</label>
-      <input id="input-valor" type="number" placeholder="0,00">
-    </div>
-    <button class="btn-add" id="btn-add-gasto">+</button>
-  </div>
+ <div class="inputs-row gastos-row">
+   <div class="input-group wide">
+     <label>CATEGORIA</label>
+     <select id="input-categoria">
+       <option value="">Selecione</option>
+       <option value="combustivel">⛽ Combustível</option>
+       <option value="manutencao">🔧 Manutenção</option>
+       <option value="alimentacao">🍔 Alimentação</option>
+       <option value="pedagio">🛣️ Pedágio</option>
+       <option value="lavagem">🚿 Lavagem</option>
+       <option value="outros">📦 Outros</option>
+     </select>
+   </div>
+   <div class="input-group narrow">
+     <label>VALOR R$</label>
+     <input id="input-valor" type="number" placeholder="0,00">
+   </div>
+   <button class="btn-add" id="btn-add-gasto">+</button>
+ </div>
 
-  <div id="gastos-chips" class="gastos-chips"></div>
+ <div id="gastos-chips" class="gastos-chips"></div>
 
 <button class="btn-salvar" id="btn-salvar">✔ Salvar Dia</button>
 
 </div>
 
 <div class="historico">
-  <div class="historico-header">
-    <h3>Histórico</h3>
-    <div class="filtros">
-      <button class="filtro active" data-filtro="hoje">Dia</button>
-      <button class="filtro" data-filtro="semana">Semana</button>
-      <button class="filtro" data-filtro="mes">Mês</button>
+ <div class="historico-header">
+   <h3>Histórico</h3>
+   <div class="filtros">
+     <button class="filtro active" data-filtro="hoje">Dia</button>
+     <button class="filtro" data-filtro="semana">Semana</button>
+     <button class="filtro" data-filtro="mes">Mês</button>
+   </div>
+ </div>
 
-    </div>
-  </div>
+ <div id="resumo-periodo" class="resumo-periodo"></div>
 
-  <div id="resumo-periodo" class="resumo-periodo"></div>
-  
-  <div id="historico-lista">
-    <div class="loading-state">
-      <div class="spinner"></div>
-      <span>Carregando...</span>
-    </div>
-  </div>
+ <div id="historico-lista">
+   <div class="loading-state">
+     <div class="spinner"></div>
+     <span>Carregando...</span>
+   </div>
+ </div>
 </div>
+
 <script type="module" src="auth.js"></script>
 <script type="module" src="app.js"></script>
+
+<script>
+ if ("serviceWorker" in navigator) {
+   navigator.serviceWorker.register("/service-worker.js");
+ }
+</script>
 
 </body>
 </html>
