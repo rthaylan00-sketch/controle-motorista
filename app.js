@@ -88,7 +88,6 @@ function filtrarDados() {
   if (filtroAtual === "semana") {
     const semana = new Date();
     semana.setDate(hoje.getDate() - 7);
-
     return dadosHistorico.filter(d =>
       new Date(d.data + "T00:00:00") >= semana
     );
@@ -111,9 +110,7 @@ function filtrarDados() {
 // RESUMO
 // ==========================
 function gerarResumo(dados) {
-  let ganhos = 0,
-    gastos = 0,
-    km = 0;
+  let ganhos = 0, gastos = 0, km = 0;
 
   dados.forEach(d => {
     ganhos += d.ganhos || 0;
@@ -144,51 +141,33 @@ function renderizarResumo(dados) {
 
   if (filtroAtual === "hoje") {
     container.innerHTML =
-      "<div class='resumo-lucro'>Lucro: R$ " +
-      lucro.toFixed(2) +
-      "</div><div class='resumo-km'>R$ " +
-      media +
-      "/km</div><div class='resumo-grid' style='margin-top:12px'><div class='resumo-item'>Km rodados<strong>" +
-      km +
-      " km</strong></div><div class='resumo-item'>Ganhos<strong>R$ " +
-      ganhos.toFixed(2) +
-      "</strong></div><div class='resumo-item'>Gastos<strong>R$ " +
-      gastos.toFixed(2) +
-      "</strong></div></div><div class='resumo-msg'>" +
-      gerarMensagem(parseFloat(media)) +
-      "</div>";
+      "<div class='resumo-lucro'>Lucro: R$ " + lucro.toFixed(2) +
+      "</div><div class='resumo-km'>R$ " + media +
+      "/km</div><div class='resumo-grid' style='margin-top:12px'><div class='resumo-item'>Km rodados<strong>" + km +
+      " km</strong></div><div class='resumo-item'>Ganhos<strong>R$ " + ganhos.toFixed(2) +
+      "</strong></div><div class='resumo-item'>Gastos<strong>R$ " + gastos.toFixed(2) +
+      "</strong></div></div><div class='resumo-msg'>" + gerarMensagem(parseFloat(media)) + "</div>";
     return;
   }
 
   if (filtroAtual === "semana") {
     container.innerHTML =
-      "<div class='resumo-lucro'>Total: R$ " +
-      lucro.toFixed(2) +
-      "</div><div class='resumo-grid' style='margin-top:12px'><div class='resumo-item'>Km<strong>" +
-      km +
-      " km</strong></div><div class='resumo-item'>Media<strong>R$ " +
-      media +
-      "/km</strong></div><div class='resumo-item'>Ganhos<strong>R$ " +
-      ganhos.toFixed(2) +
-      "</strong></div><div class='resumo-item'>Gastos<strong>R$ " +
-      gastos.toFixed(2) +
+      "<div class='resumo-lucro'>Total: R$ " + lucro.toFixed(2) +
+      "</div><div class='resumo-grid' style='margin-top:12px'><div class='resumo-item'>Km<strong>" + km +
+      " km</strong></div><div class='resumo-item'>Media<strong>R$ " + media +
+      "/km</strong></div><div class='resumo-item'>Ganhos<strong>R$ " + ganhos.toFixed(2) +
+      "</strong></div><div class='resumo-item'>Gastos<strong>R$ " + gastos.toFixed(2) +
       "</strong></div></div>";
     return;
   }
 
   if (filtroAtual === "mes") {
     container.innerHTML =
-      "<div class='resumo-grid'><div class='resumo-item'>Ganhos<strong>R$ " +
-      ganhos.toFixed(2) +
-      "</strong></div><div class='resumo-item'>Gastos<strong>R$ " +
-      gastos.toFixed(2) +
-      "</strong></div></div><div class='resumo-lucro' style='margin-top:12px'>Lucro: R$ " +
-      lucro.toFixed(2) +
-      "</div><div class='resumo-grid' style='margin-top:8px'><div class='resumo-item'>Media<strong>R$ " +
-      media +
-      "/km</strong></div><div class='resumo-item'>Km<strong>" +
-      km +
-      " km</strong></div></div>";
+      "<div class='resumo-grid'><div class='resumo-item'>Ganhos<strong>R$ " + ganhos.toFixed(2) +
+      "</strong></div><div class='resumo-item'>Gastos<strong>R$ " + gastos.toFixed(2) +
+      "</strong></div></div><div class='resumo-lucro' style='margin-top:12px'>Lucro: R$ " + lucro.toFixed(2) +
+      "</div><div class='resumo-grid' style='margin-top:8px'><div class='resumo-item'>Media<strong>R$ " + media +
+      "/km</strong></div><div class='resumo-item'>Km<strong>" + km + " km</strong></div></div>";
   }
 }
 
@@ -208,9 +187,7 @@ function renderizarLista(dados) {
   dados.forEach(d => {
     const partes = d.data.split("-");
     const dataFormatada = new Date(
-      partes[0],
-      partes[1] - 1,
-      partes[2]
+      partes[0], partes[1] - 1, partes[2]
     ).toLocaleDateString("pt-BR");
 
     const lucro = d.ganhos - d.totalGastos;
@@ -219,17 +196,10 @@ function renderizarLista(dados) {
     const item = document.createElement("div");
     item.className = "historico-item";
     item.innerHTML =
-      "<div class='historico-topo'><span class='historico-data'>" +
-      dataFormatada +
-      "</span><button class='btn-apagar' data-id='" +
-      d.id +
-      "'>x</button></div><div class='historico-lucro'>R$ " +
-      lucro.toFixed(2) +
-      "</div><div class='historico-km'>" +
-      d.km +
-      " km - R$ " +
-      porKm +
-      "/km</div>";
+      "<div class='historico-topo'><span class='historico-data'>" + dataFormatada +
+      "</span><button class='btn-apagar' data-id='" + d.id +
+      "'>x</button></div><div class='historico-lucro'>R$ " + lucro.toFixed(2) +
+      "</div><div class='historico-km'>" + d.km + " km - R$ " + porKm + "/km</div>";
 
     lista.appendChild(item);
   });
@@ -253,10 +223,12 @@ function renderizarTudo() {
   renderizarLista(dados);
 }
 
+// ==========================
+// CARREGAR HISTÓRICO
+// ==========================
 async function carregarHistorico() {
   const lista = document.getElementById("historico-lista");
-  lista.innerHTML =
-    "<div class='loading-state'><div class='spinner'></div><span>Carregando...</span></div>";
+  lista.innerHTML = "<div class='loading-state'><div class='spinner'></div><span>Carregando...</span></div>";
 
   const q = query(
     collection(db, "registros"),
@@ -270,6 +242,35 @@ async function carregarHistorico() {
   snapshot.forEach(d => {
     dadosHistorico.push({ id: d.id, ...d.data() });
   });
+
+  // ── CALCULAR CARDS ──
+  const hoje = new Date().toISOString().split("T")[0];
+  const mesAtual = hoje.slice(0, 7);
+
+  let ganhosHoje = 0, gastosHoje = 0;
+  let ganhosMes = 0, kmMes = 0, gastosMes = 0;
+
+  dadosHistorico.forEach(d => {
+    if (d.data === hoje) {
+      ganhosHoje += d.ganhos;
+      gastosHoje += d.totalGastos;
+    }
+    if (d.data.startsWith(mesAtual)) {
+      ganhosMes += d.ganhos;
+      kmMes += d.km;
+      gastosMes += d.totalGastos;
+    }
+  });
+
+  const lucro = ganhosMes - gastosMes;
+
+  const el = id => document.getElementById(id);
+  if (el("ganhos-hoje")) el("ganhos-hoje").textContent = `R$ ${ganhosHoje.toFixed(2)}`;
+  if (el("gastos-hoje")) el("gastos-hoje").textContent = `R$ ${gastosHoje.toFixed(2)}`;
+  if (el("ganhos-mes")) el("ganhos-mes").textContent = `R$ ${ganhosMes.toFixed(2)}`;
+  if (el("km-mes")) el("km-mes").textContent = `${kmMes} km`;
+  if (el("lucro-liquido")) el("lucro-liquido").textContent = `R$ ${lucro.toFixed(2)}`;
+  if (el("label-calc")) el("label-calc").textContent = `Ganhos R$ ${ganhosMes.toFixed(2)} - Gastos R$ ${gastosMes.toFixed(2)}`;
 
   renderizarTudo();
 }
@@ -287,18 +288,13 @@ onAuthStateChanged(auth, user => {
     btnSalvarRegistrado = true;
 
     document.getElementById("btn-salvar").addEventListener("click", async () => {
-      const ganhos =
-        parseFloat(document.getElementById("input-ganhos").value) || 0;
-      const km =
-        parseFloat(document.getElementById("input-km").value) || 0;
+      const ganhos = parseFloat(document.getElementById("input-ganhos").value) || 0;
+      const km = parseFloat(document.getElementById("input-km").value) || 0;
       const data = document.getElementById("input-data").value;
 
       if (!data) return alert("Informe a data!");
 
-      const totalGastos = gastosTemp.reduce(
-        (acc, g) => acc + g.valor,
-        0
-      );
+      const totalGastos = gastosTemp.reduce((acc, g) => acc + g.valor, 0);
 
       await addDoc(collection(db, "registros"), {
         uid: usuarioAtual.uid,
@@ -323,3 +319,6 @@ onAuthStateChanged(auth, user => {
     });
   }
 });
+
+
+Substitui tudo no app.js e faz commit! 🙂​​​​​​​​​​​​​​​​
