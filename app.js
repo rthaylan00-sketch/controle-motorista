@@ -320,5 +320,4 @@ onAuthStateChanged(auth, user => {
   }
 });
 
-
-Substitui tudo no app.js e faz commit! 🙂​​​​​​​​​​​​​​​​
+​​​​​​​​​
